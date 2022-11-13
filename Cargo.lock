@@ -1030,6 +1030,9 @@ name = "comp_4555_term_game"
 version = "0.1.0"
 dependencies = [
  "bevy",
+ "log",
+ "ron",
+ "serde",
 ]
 
 [[package]]
