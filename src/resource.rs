@@ -1,8 +1,13 @@
 use serde::{Deserialize, Serialize};
 use std::fs;
 use log::{info, warn};
+use bevy::prelude::*;
 
-#[derive(Debug, Deserialize, Serialize)]
+
+pub const DEFAULT_CONFIG_FILE: &str = "config.ron";
+
+
+#[derive(Resource, Debug, Deserialize, Serialize)]
 pub struct Config {
     pub player: PlayerConfig,
 }
@@ -10,27 +15,24 @@ pub struct Config {
 #[derive(Debug, Deserialize, Serialize)]
 pub struct PlayerConfig {
     pub image_path: String,
+    pub move_speed: f32,
 }
 
 impl Default for Config {
     fn default() -> Self {
-        Self { player: PlayerConfig::default() }
+        load_config()
     }
 }
 
-impl Default for PlayerConfig {
-    fn default() -> Self {
-        Self { image_path: String::from("unconfigured.png") }
-    }
-}
 
-pub fn load_config(file_path: &str) -> Config {
-    let config_str: &str = &fs::read_to_string(file_path)
+pub fn load_config() -> Config {
+    let config_str: &str = &fs::read_to_string(DEFAULT_CONFIG_FILE)
         .expect("Wasn't able to read config.ron");
 
-    let conf = match ron::from_str(config_str) {
+    let conf = match ron::from_str::<Config>(config_str) {
         Ok(v) => {
             info!("Loaded config file");
+            info!("Player Image: {}", v.player.image_path);
             v
         },
         Err(err) => {

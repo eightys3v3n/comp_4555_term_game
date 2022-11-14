@@ -1,5 +1,6 @@
 Config(
     player: (
-        image_path: "Top_Down_Survivor/handgun/idle/survivor-idle_handgun_0.png",
+        image_path: "survivor-idle_handgun_0.png",
+        move_speed: 20,
     ),
 )
