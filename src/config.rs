@@ -34,7 +34,7 @@ pub fn load_config(file_path: &str) -> Config {
             v
         },
         Err(err) => {
-            warn!("Failed to load config file, using default conig");
+            warn!("Failed to load config file, using default conig. {}", err);
             Config::default()
         }
     };
