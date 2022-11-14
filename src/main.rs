@@ -1,5 +1,8 @@
-use bevy::{prelude::*, sprite::MaterialMesh2dBundle};
+use bevy::{
+    prelude::*,
+};
 mod config;
+mod system;
 
 const CONFIG_FILE: &str = "config.ron";
 
@@ -7,13 +10,15 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .add_startup_system(setup)
+        .add_system(system::example::print_keyboard_event_system)
+        .add_system(system::example::print_mouse_events_system)
+        .add_system(system::example::mouse_click_system)
+        .add_system(system::example::grab_mouse)
         .run();
 }
 
 fn setup(
     mut commands: Commands,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
     asset_server: Res<AssetServer>,
 ) {
     let conf = config::load_config(CONFIG_FILE);
