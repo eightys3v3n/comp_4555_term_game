@@ -14,8 +14,8 @@ pub struct Velocity {
 impl Velocity {
     pub fn new(x: f32, y: f32) -> Velocity {
         Velocity {
-            x: 0.0,
-            y: 0.0
+            x: x,
+            y: y
         }
     }
 }

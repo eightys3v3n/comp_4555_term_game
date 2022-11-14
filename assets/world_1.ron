@@ -1,0 +1,14 @@
+Tilemap {
+    width: 10,
+    height: 10,
+    tiles: [
+        Tile(type: TileType::Grass),
+        Tile(type: TileType::Grass),
+        Tile(type: TileType::Grass),
+        Tile(type: TileType::Grass),
+        Tile(type: TileType::Grass),
+        Tile(type: TileType::Grass),
+        Tile(type: TileType::Grass),
+        Tile(type: TileType::Grass),
+    ],
+}

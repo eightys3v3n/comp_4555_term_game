@@ -1,6 +1,8 @@
 Config(
     player: (
         image_path: "survivor-idle_handgun_0.png",
-        move_speed: 20,
+        move_speed: 50,
+        width: 50.0,
+        height: 50.0,
     ),
 )
