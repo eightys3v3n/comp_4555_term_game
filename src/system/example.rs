@@ -7,7 +7,7 @@ use bevy::{
 use super::super::resource::tilemap::Tilemap;
 
 
-pub fn set_player_movements(
+pub fn debug_key(
     keys: Res<Input<KeyCode>>,
     tilemap: Res<Tilemap>,
 ) {

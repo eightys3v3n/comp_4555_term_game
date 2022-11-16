@@ -4,5 +4,12 @@ Config(
         move_speed: 50,
         width: 50.0,
         height: 50.0,
+        default_z_height: 1.0,
     ),
+
+    map: (
+        grass_texture_path: "grass.png",
+        default_z_height: 0.0,
+        tile_size: 40,
+    )
 )

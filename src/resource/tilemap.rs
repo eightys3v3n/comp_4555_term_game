@@ -1,28 +1,46 @@
 use serde::{Deserialize, Serialize};
-use std::fs;
+use std::{
+    fs,
+    fmt::format,
+};
 use log::{info, warn};
 use bevy::prelude::*;
-use std::fmt;
+
 
 #[derive(Debug, Deserialize, Serialize)]
 pub enum TileType {
     Grass,
 }
 
-#[derive(Resource, Default, Debug, Deserialize, Serialize)]
+#[derive(Resource, Debug, Deserialize, Serialize)]
 pub struct Tilemap {
     pub tiles: Vec<Tile>,
-    pub width: u64,
-    pub height: u64,
+    pub width: usize,
+    pub height: usize,
+    pub centre_x: u64,
+    pub centre_y: u64,
 }
 
-#[derive(Resource, Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Tile {
-    r#type: TileType,
+    pub r#type: TileType,
+}
+
+
+impl Default for Tilemap {
+    fn default() -> Self {
+        load_map(String::from("world_1"))
+    }
+}
+
+#[derive(Debug)]
+enum TilemapError {
+    XOutsideMap,
+    NoSuchTile,
 }
 
 impl Tilemap {
-    pub fn new(width: u64, height: u64) -> Self {
+    pub fn new(width: usize, height: usize, centre_x: u64, centre_y: u64) -> Self {
         let mut tiles: Vec<Tile> = Vec::with_capacity((width * height) as usize);
 
         for y in 0..height {
@@ -32,18 +50,40 @@ impl Tilemap {
         }
 
         Self {
-            tiles: tiles,
-            width: width,
-            height: height,
+            tiles,
+            width,
+            height,
+            centre_x,
+            centre_y,
         }
     }
 
-    pub fn default() -> Self {
-        load_map(String::from("world_1"))
+    pub fn map_pos_to_array_pos(&self, x: i64, y: i64) -> (u64, u64) {
+        return (10, 10);
     }
 
-    pub fn get_tile() {
+    pub fn array_pos_to_map_pos(&self, x: u64, y: u64) -> (i64, i64) {
+        return (10, 10);
+    }
 
+    pub fn get_tile(&self, x: i64, y: i64) -> Result<&Tile, TilemapError> {
+        if x >= self.width as i64 {
+            // return Err(format!("Specified X is greater than tilemap width: {}>{}", x, self.width));
+            return Err(TilemapError::XOutsideMap);
+        }
+
+        let (new_x, new_y) = self.map_pos_to_array_pos(x, y);
+        let index: usize = (new_y * self.width as u64 * new_x) as usize;
+
+        return match self.tiles.get(index) {
+            None => {
+                Err(
+                    // format!("No tile for given position ({}, {}) -> ({}, {}) -> index({})", x, y, new_x, new_y, index)
+                    TilemapError::NoSuchTile
+                )
+            },
+            Some(t) => { Ok(t) }
+        };
     }
 
     pub fn get_tile_mut() {
@@ -62,7 +102,9 @@ impl Tile {
 }
 
 pub fn load_map(name: String) -> Tilemap {
-    let map_path: String = format!("{}.ron", name);
+    let map_path: String = format!("assets/{}.ron", name);
+
+    info!("Loading map file {}", map_path);
 
     let map_str: &str = &fs::read_to_string(map_path)
         .expect("Wasn't able to read the map file");
@@ -75,9 +117,25 @@ pub fn load_map(name: String) -> Tilemap {
         },
         Err(err) => {
             warn!("Failed to load map file, using default map file. {}", err);
-            Tilemap::default()
+            Tilemap::new(11, 11, 5, 5)
         }
     };
 
-    return map;
+    if map.height * map.width != map.tiles.len() {
+        panic!("Map {} does not contain the correct number of tiles; {} when expected {}", name, map.tiles.len(), map.height * map.width);
+    }
+
+    map
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn test_map_pos_to_array_pos() {
+        // Create an empty tilemap of size 11x11, centred on the screen.
+        let tilemap = Tilemap::new(11, 11, 5, 5);
+
+        assert_eq!(tilemap::map_pos_to_array_pos(-1, -1), (4, 4));
+    }
 }

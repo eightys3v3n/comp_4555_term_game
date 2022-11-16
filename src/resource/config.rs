@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
-use std::fs;
-use log::{info, warn};
+use std::{ fs, fmt };
+use log::{ info, warn };
 use bevy::prelude::*;
 
 
@@ -10,7 +10,16 @@ pub const DEFAULT_CONFIG_FILE: &str = "config.ron";
 #[derive(Resource, Debug, Deserialize, Serialize)]
 pub struct Config {
     pub player: PlayerConfig,
+    pub map: MapConfig,
 }
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct MapConfig {
+    pub grass_texture_path: String,
+    pub default_z_height: f32,
+    pub tile_size: f32,
+}
+
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct PlayerConfig {
@@ -18,11 +27,27 @@ pub struct PlayerConfig {
     pub move_speed: f32,
     pub width: f32,
     pub height: f32,
+    pub default_z_height: f32,
 }
 
 impl Default for Config {
     fn default() -> Self {
         load_config()
+    }
+}
+
+impl std::fmt::Display for Config {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "\nconfig:\n");
+        write!(f, "  player:\n");
+        write!(f, "    image_path:{}\n", self.player.image_path);
+        write!(f, "    move_speed:{}\n", self.player.move_speed);
+        write!(f, "    width:{}\n", self.player.width);
+        write!(f, "    height:{}\n", self.player.height);
+        write!(f, "  map:\n");
+        write!(f, "    grass_texture_path:{}\n", self.map.grass_texture_path);
+        write!(f, "    default_z_height:{}\n", self.map.default_z_height);
+        write!(f, "    tile_size:{}\n", self.map.tile_size)
     }
 }
 
@@ -34,7 +59,6 @@ pub fn load_config() -> Config {
     let conf = match ron::from_str::<Config>(config_str) {
         Ok(v) => {
             info!("Loaded config file");
-            info!("Player Image: {}", v.player.image_path);
             v
         },
         Err(err) => {
@@ -43,7 +67,7 @@ pub fn load_config() -> Config {
         }
     };
 
-    info!("Loaded config: {}", conf.player.image_path);
+    info!("{}", conf);
 
     return conf;
 }
