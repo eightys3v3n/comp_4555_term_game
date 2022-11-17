@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 use std::{ fs, fmt };
-use log::{ info, warn };
+use log::{ info };
 use bevy::prelude::*;
 use super::super::enums::MoveBehaviour;
 
