@@ -1,28 +1,26 @@
 use bevy::prelude::*;
+use super::enums::MoveBehaviour;
 
 
+pub mod velocity;
+pub use velocity::Velocity;
+
+
+// Tagging
 #[derive(Component)]
 pub struct Player;
-
-
-#[derive(Component)]
-pub struct Velocity {
-    pub x: f32,
-    pub y: f32,
-}
-
-impl Velocity {
-    pub fn new(x: f32, y: f32) -> Velocity {
-        Velocity {
-            x: x,
-            y: y
-        }
-    }
-}
 
 #[derive(Component)]
 pub struct Tile;
 
+
+#[derive(Component)]
+pub struct Enemy {
+    pub move_behaviour: MoveBehaviour,
+}
+
+
+// Bundles
 #[derive(Bundle)]
 pub struct Character {
     #[bundle]

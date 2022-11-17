@@ -11,12 +11,13 @@ pub fn apply_velocity(
     mut player_moved: ResMut<PlayerMovedFlag>,
 ) {
     for (mut transform, velocity, player) in query.iter_mut() {
-        transform.translation.x += velocity.x * time.delta_seconds();
-        transform.translation.y += velocity.y * time.delta_seconds();
+        let vel_xy = velocity.to_xy();
+        transform.translation.x += vel_xy.0 * time.delta_seconds();
+        transform.translation.y += vel_xy.1 * time.delta_seconds();
 
         match player {
             Some(_) => {
-                if velocity.x != 0.0 || velocity.y != 0.0 {
+                if velocity.to_xy().0 != 0.0 || velocity.to_xy().1 != 0.0 {
                     player_moved.moved_since_last_frame = true;
                 }
             }

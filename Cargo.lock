@@ -1039,6 +1039,7 @@ dependencies = [
 name = "comp_4555_term_game"
 version = "0.1.0"
 dependencies = [
+ "approx",
  "bevy",
  "log",
  "ron",
