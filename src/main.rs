@@ -56,21 +56,23 @@ fn load_map(
 ) {
     for y in 0..tilemap.height {
         for x in 0..tilemap.width {
-            info!("Drawing array tile ({}, {})", x, y);
             let map_x: f32 = (x as f32 - tilemap.centre_x as f32) * config.map.tile_size as f32;
             let map_y: f32 = (y as f32 - tilemap.centre_y as f32) * config.map.tile_size as f32;
 
-            commands.spawn(SpriteBundle {
-                texture: asset_server.load(&config.map.grass_texture_path),
-                transform: Transform::from_xyz(map_x,
-                                               map_y,
-                                               config.map.default_z_height),
-                sprite: Sprite {
-                    custom_size: Some(Vec2::new(config.map.tile_size, config.map.tile_size)),
+            commands.spawn((
+                component::Tile,
+                SpriteBundle {
+                    texture: asset_server.load(&config.map.grass_texture_path),
+                    transform: Transform::from_xyz(map_x,
+                                                   map_y,
+                                                   config.map.default_z_height),
+                    sprite: Sprite {
+                        custom_size: Some(Vec2::new(config.map.tile_size, config.map.tile_size)),
+                        ..default()
+                    },
                     ..default()
-                },
-                ..default()
-            });
+                }
+            ));
         }
     }
 }

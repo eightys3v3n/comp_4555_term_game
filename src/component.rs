@@ -20,6 +20,8 @@ impl Velocity {
     }
 }
 
+#[derive(Component)]
+pub struct Tile;
 
 #[derive(Bundle)]
 pub struct Character {
