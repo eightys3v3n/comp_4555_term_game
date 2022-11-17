@@ -38,16 +38,25 @@ impl Default for Config {
 
 impl std::fmt::Display for Config {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "\nconfig:\n");
-        write!(f, "  player:\n");
-        write!(f, "    image_path:{}\n", self.player.image_path);
-        write!(f, "    move_speed:{}\n", self.player.move_speed);
-        write!(f, "    width:{}\n", self.player.width);
-        write!(f, "    height:{}\n", self.player.height);
-        write!(f, "  map:\n");
-        write!(f, "    grass_texture_path:{}\n", self.map.grass_texture_path);
-        write!(f, "    default_z_height:{}\n", self.map.default_z_height);
-        write!(f, "    tile_size:{}\n", self.map.tile_size)
+        write!(f, "\n\
+config:\n\
+  player:\n\
+    image_path:{}\n\
+    move_speed:{}\n\
+    width:{}\n\
+    height:{}\n\
+  map:\n\
+    grass_texture_path:{}\n\
+    default_z_height:{}\n\
+    tile_size:{}\n",
+            self.player.image_path,
+            self.player.move_speed,
+            self.player.width,
+            self.player.height,
+            self.map.grass_texture_path,
+            self.map.default_z_height,
+            self.map.tile_size
+       )
     }
 }
 

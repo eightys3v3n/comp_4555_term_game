@@ -1,7 +1,6 @@
 use serde::{Deserialize, Serialize};
 use std::{
     fs,
-    fmt::format,
 };
 use log::{info, warn};
 use bevy::prelude::*;
@@ -27,16 +26,16 @@ pub struct Tile {
 }
 
 
+pub enum TilemapError {
+    XOutsideMap,
+    NoSuchTile,
+}
+
+
 impl Default for Tilemap {
     fn default() -> Self {
         load_map(String::from("world_1"))
     }
-}
-
-#[derive(Debug)]
-enum TilemapError {
-    XOutsideMap,
-    NoSuchTile,
 }
 
 impl Tilemap {

@@ -14,9 +14,9 @@ fn main() {
         .init_resource::<resource::player_moved_flag::PlayerMovedFlag>()
         .add_startup_system(setup)
         .add_startup_system(load_map)
-        // .add_system(system::example::print_keyboard_event_system)
-        .add_system(system::example::debug_key)
         .add_system(system::map_scroll::map_scroll)
+        // .add_system(system::example::print_keyboard_event_system)
+        // .add_system(system::example::debug_key)
         // .add_system(system::example::print_mouse_events_system)
         // .add_system(system::example::mouse_click_system)
         // .add_system(system::example::grab_mouse)
@@ -29,7 +29,6 @@ fn setup(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
     config: Res<resource::config::Config>,
-    tilemap: Res<resource::tilemap::Tilemap>,
 ) {
     commands.spawn(Camera2dBundle::default());
 
