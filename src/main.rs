@@ -1,9 +1,11 @@
 use bevy::{
     prelude::*,
+    time::FixedTimestep,
 };
 mod system;
 mod component;
 mod resource;
+mod enums;
 
 
 fn main() {
@@ -14,7 +16,12 @@ fn main() {
         .init_resource::<resource::player_moved_flag::PlayerMovedFlag>()
         .add_startup_system(setup)
         .add_startup_system(load_map)
-        .add_system(system::map_scroll::map_scroll)
+        // .add_system(system::map_scroll::map_scroll)
+        .add_system_set(
+            SystemSet::new()
+                .with_run_criteria(FixedTimestep::step(0.1))
+                .with_system(system::enemy_movement::enemy_movement)
+        )
         // .add_system(system::example::print_keyboard_event_system)
         // .add_system(system::example::debug_key)
         // .add_system(system::example::print_mouse_events_system)
@@ -35,7 +42,7 @@ fn setup(
     commands.spawn((component::Character {
         sprite: SpriteBundle {
             texture: asset_server.load(&config.player.image_path),
-            transform: Transform::from_xyz(0.0, 0.0, config.player.default_z_height),
+            transform: Transform::from_xyz(0.0, 0.0, config.player.z_height),
             sprite: Sprite {
                 custom_size: Some(Vec2::new(config.player.width, config.player.height)),
                 ..default()
@@ -47,6 +54,23 @@ fn setup(
         component::Player,
     ));
 
+    commands.spawn((
+        component::Character {
+            sprite: SpriteBundle {
+                texture: asset_server.load(&config.enemy.basic.image_path),
+                transform: Transform::from_xyz(0.0, 0.0, config.enemy.basic.z_height),
+                sprite: Sprite {
+                    custom_size: Some(Vec2::new(config.enemy.basic.width, config.enemy.basic.height)),
+                    ..default()
+                },
+                ..default()
+            },
+            velocity: component::Velocity::new(10.0, 0.0),
+        },
+        component::Enemy {
+            move_behaviour: enums::MoveBehaviour::PointedToPlayer,
+        },
+    ));
 }
 
 fn load_map(

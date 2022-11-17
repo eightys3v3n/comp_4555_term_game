@@ -2,6 +2,7 @@ use serde::{Deserialize, Serialize};
 use std::{ fs, fmt };
 use log::{ info, warn };
 use bevy::prelude::*;
+use super::super::enums::MoveBehaviour;
 
 
 pub const DEFAULT_CONFIG_FILE: &str = "config.ron";
@@ -11,6 +12,13 @@ pub const DEFAULT_CONFIG_FILE: &str = "config.ron";
 pub struct Config {
     pub player: PlayerConfig,
     pub map: MapConfig,
+    pub enemy: EnemyTypesConfig,
+    pub performance: PerformanceConfig,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct PerformanceConfig {
+    pub enemy_movement_frequency: f32,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -20,15 +28,30 @@ pub struct MapConfig {
     pub tile_size: f32,
 }
 
-
 #[derive(Debug, Deserialize, Serialize)]
 pub struct PlayerConfig {
     pub image_path: String,
     pub move_speed: f32,
     pub width: f32,
     pub height: f32,
-    pub default_z_height: f32,
+    pub z_height: f32,
 }
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct EnemyTypesConfig {
+    pub basic: EnemyConfig,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct EnemyConfig {
+    pub image_path: String,
+    pub move_speed: f32,
+    pub width: f32,
+    pub height: f32,
+    pub move_behaviour: MoveBehaviour,
+    pub z_height: f32,
+}
+
 
 impl Default for Config {
     fn default() -> Self {
@@ -38,24 +61,31 @@ impl Default for Config {
 
 impl std::fmt::Display for Config {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "\n\
-config:\n\
-  player:\n\
-    image_path:{}\n\
-    move_speed:{}\n\
-    width:{}\n\
-    height:{}\n\
-  map:\n\
-    grass_texture_path:{}\n\
-    default_z_height:{}\n\
-    tile_size:{}\n",
+        write!(f, "
+config:
+  player:
+    image_path:{}
+    move_speed:{}
+    width:{}
+    height:{}
+  map:
+    grass_texture_path:{}
+    default_z_height:{}
+    tile_size:{}
+  enemy:
+    basic:
+      move_speed:{}
+  performance:
+    enemy_movement_frequency: {}",
             self.player.image_path,
             self.player.move_speed,
             self.player.width,
             self.player.height,
             self.map.grass_texture_path,
             self.map.default_z_height,
-            self.map.tile_size
+            self.map.tile_size,
+            self.enemy.basic.move_speed,
+            self.performance.enemy_movement_frequency,
        )
     }
 }

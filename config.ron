@@ -4,12 +4,27 @@ Config(
         move_speed: 50,
         width: 50.0,
         height: 50.0,
-        default_z_height: 1.0,
+        z_height: 10.0,
     ),
 
     map: (
         grass_texture_path: "grass.png",
         default_z_height: 0.0,
         tile_size: 40,
+    ),
+
+    enemy: (
+        basic: (
+            move_speed: 40,
+            move_behaviour: PointedToPlayer,
+            image_path: "skeleton-idle_0.png",
+            z_height: 9.0,
+            width: 50.0,
+            height: 50.0,
+        ),
+    ),
+
+    performance: (
+        enemy_movement_frequency: 0.1, // doesn't work yet
     )
 )
