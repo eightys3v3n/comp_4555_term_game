@@ -71,8 +71,7 @@ pub fn load_config() -> Config {
             v
         },
         Err(err) => {
-            warn!("Failed to load config file, using default config. {}", err);
-            Config::default()
+            panic!("Failed to load config file: {}", err)
         }
     };
 
