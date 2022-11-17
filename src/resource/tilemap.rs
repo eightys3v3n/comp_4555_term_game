@@ -130,11 +130,4 @@ pub fn load_map(name: String) -> Tilemap {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    fn test_map_pos_to_array_pos() {
-        // Create an empty tilemap of size 11x11, centred on the screen.
-        let tilemap = Tilemap::new(11, 11, 5, 5);
-
-        assert_eq!(tilemap::map_pos_to_array_pos(-1, -1), (4, 4));
-    }
 }
