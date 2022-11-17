@@ -1,12 +1,6 @@
 use bevy::prelude::*;
 use approx::assert_ulps_eq;
 
-// fn q_from_xy(x: f32, y: f32) {
-//     if x >= 0 && y >= 0 { return 0; }
-//     else if x <= 0 && y >= 0 { return 1; }
-//     else if x <= 0 && y <= 0 { return 2; }
-//     else if x >= 0 && y <= 0 { return 3; }
-// }
 
 #[derive(Component)]
 pub struct Velocity {
