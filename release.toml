@@ -1,0 +1,3 @@
+allow-branch = ["main"]
+publish = false
+verify = false
