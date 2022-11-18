@@ -5,3 +5,10 @@ use serde::{Deserialize, Serialize};
 pub enum MoveBehaviour {
     PointedToPlayer,
 }
+
+#[derive(Debug, Clone, Eq, PartialEq, Hash)]
+pub enum AppState {
+    MainMenu,
+    Playing,
+    Paused,
+}
