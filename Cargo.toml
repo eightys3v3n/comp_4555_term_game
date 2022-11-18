@@ -2,6 +2,9 @@
 name = "comp_4555_term_game"
 version = "0.5.0"
 edition = "2021"
+description = "A Box-head-zombie-wars-like game"
+license = "Unspecified"
+documentation = "In my Obsidian repo"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
