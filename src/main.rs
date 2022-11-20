@@ -33,6 +33,7 @@ fn main() {
         .init_resource::<Tilemap>()
         .init_resource::<PlayerMovedFlag>()
         .add_state(AppState::Playing)
+        .add_startup_system(setup)
         // .add_state(AppState::MainMenu)
         .add_system_set(
             SystemSet::on_enter(AppState::MainMenu)
@@ -63,4 +64,11 @@ fn main() {
                 .with_system(handle_playing_inputs)
         )
         .run();
+}
+
+
+pub fn setup(
+    mut commands: Commands,
+) {
+    commands.spawn(Camera2dBundle::default());
 }

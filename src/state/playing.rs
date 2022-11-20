@@ -14,8 +14,6 @@ pub fn setup(
     asset_server: Res<AssetServer>,
     config: Res<Config>,
 ) {
-    commands.spawn(Camera2dBundle::default());
-
     commands.spawn((Character {
         sprite: SpriteBundle {
             texture: asset_server.load(&config.player.image_path),
