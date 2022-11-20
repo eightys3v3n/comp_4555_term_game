@@ -13,7 +13,16 @@ pub fn setup(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
     config: Res<Config>,
+    entities: Query<(Entity, AnyOf<(With<Player>, With<Enemy>)>)>,
 ) {
+    // Despawn all existing game stuff that needs to be reset.
+    if ! entities.is_empty() {
+        for (entity, _) in entities.iter() {
+            commands.entity(entity).despawn();
+        }
+    }
+
+    // Spawn in all game stuff.
     commands.spawn((Character {
         sprite: SpriteBundle {
             texture: asset_server.load(&config.player.image_path),
@@ -53,7 +62,14 @@ pub fn load_map(
     asset_server: Res<AssetServer>,
     config: Res<Config>,
     tilemap: Res<Tilemap>,
+    tiles: Query<Entity, With<Tile>>,
 ) {
+    if ! tiles.is_empty() {
+        for entity in tiles.iter() {
+            commands.entity(entity).despawn();
+        }
+    }
+
     for y in 0..tilemap.height {
         for x in 0..tilemap.width {
             let map_x: f32 = (x as f32 - tilemap.centre_x as f32) * config.map.tile_size as f32;
