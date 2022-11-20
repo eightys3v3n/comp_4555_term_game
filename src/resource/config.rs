@@ -14,6 +14,7 @@ pub struct Config {
     pub map: MapConfig,
     pub enemy: EnemyTypesConfig,
     pub performance: PerformanceConfig,
+    pub menu: MenuConfig,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -52,6 +53,20 @@ pub struct EnemyConfig {
     pub z_height: f32,
 }
 
+#[derive(Debug, Deserialize, Serialize)]
+pub struct MenuConfig {
+    pub r#continue: ButtonConfig,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct ButtonConfig {
+    pub image_path: String,
+    pub z_height: f32, // should be above the entire playable world.
+    pub width: f32,
+    pub height: f32,
+}
+
+
 
 impl Default for Config {
     fn default() -> Self {
@@ -76,7 +91,10 @@ config:
     basic:
       move_speed:{}
   performance:
-    enemy_movement_frequency: {}",
+    enemy_movement_frequency: {}
+  menu:
+    continue_button_image: {}
+    z_height: {}",
             self.player.image_path,
             self.player.move_speed,
             self.player.width,
@@ -86,6 +104,8 @@ config:
             self.map.tile_size,
             self.enemy.basic.move_speed,
             self.performance.enemy_movement_frequency,
+            self.menu.r#continue.image_path,
+            self.menu.r#continue.z_height,
        )
     }
 }

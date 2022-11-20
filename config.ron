@@ -26,5 +26,14 @@ Config(
 
     performance: (
         enemy_movement_frequency: 0.1, // doesn't work yet
-    )
+    ),
+
+    menu: (
+        continue: (
+            image_path: "continue.png",
+            z_height: 20.0,
+            width: 100.0,
+            height: 40.0,
+        ),
+    ),
 )
