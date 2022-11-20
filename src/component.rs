@@ -11,6 +11,9 @@ pub use velocity::Velocity;
 pub struct Player;
 
 #[derive(Component)]
+pub struct Button;
+
+#[derive(Component)]
 pub struct Tile;
 
 

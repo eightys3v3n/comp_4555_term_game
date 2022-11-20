@@ -17,6 +17,8 @@ use system::{
     enemy_movement::enemy_movement,
     player_movement::set_player_movements,
     velocity::apply_velocity,
+    playing_inputs::handle_playing_inputs,
+    main_menu_inputs::handle_main_menu_inputs,
 };
 use enums::{
     AppState
@@ -31,15 +33,22 @@ fn main() {
         .init_resource::<Tilemap>()
         .init_resource::<PlayerMovedFlag>()
         .add_state(AppState::Playing)
+        // .add_state(AppState::MainMenu)
+        .add_system_set(
+            SystemSet::on_enter(AppState::MainMenu)
+                .with_system(main_menu::setup)
+                // .with_system(button_press)
+        )
+        .add_system_set(
+            SystemSet::on_update(AppState::MainMenu)
+                .with_system(handle_main_menu_inputs)
+                // .with_system(main_menu::setup)
+                // .with_system(button_press)
+        )
         .add_system_set(
             SystemSet::on_enter(AppState::Playing)
                 .with_system(playing::setup)
                 .with_system(playing::load_map)
-        )
-        .add_system_set(
-            SystemSet::on_enter(AppState::MainMenu)
-                .with_system(playing::setup)
-                // .with_system(button_press)
         )
         .add_system_set(
             SystemSet::on_update(AppState::Playing)
@@ -51,6 +60,7 @@ fn main() {
             SystemSet::on_update(AppState::Playing)
                 .with_system(set_player_movements)
                 .with_system(apply_velocity)
+                .with_system(handle_playing_inputs)
         )
         .run();
 }
