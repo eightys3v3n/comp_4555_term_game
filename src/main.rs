@@ -28,7 +28,16 @@ use state::{ playing, main_menu };
 
 fn main() {
     App::new()
-        .add_plugins(DefaultPlugins)
+        .add_plugins(DefaultPlugins.set(WindowPlugin {
+            window: WindowDescriptor {
+                title: "Untitled Game".to_string(),
+                width: 800.,
+                height: 500.,
+                present_mode: PresentMode::AutoVsync,
+                ..default()
+            },
+            ..default()
+        }))
         .init_resource::<Config>()
         .init_resource::<Tilemap>()
         .init_resource::<PlayerMovedFlag>()
