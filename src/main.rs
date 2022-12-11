@@ -88,7 +88,7 @@ pub fn setup(
     let mut windows = windows.iter_mut().collect::<Vec<&mut Window>>();
 
     assert!(windows.len() > 0);
-    if (windows.len() > 1) {
+    if windows.len() > 1 {
         warn!("I am not expecting more than one window but there are {}", windows.len());
     }
 
