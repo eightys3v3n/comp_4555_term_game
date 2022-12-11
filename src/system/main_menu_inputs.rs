@@ -1,4 +1,5 @@
 use bevy::{
+    app::AppExit,
     prelude::*,
     input::{
         keyboard::KeyboardInput,
@@ -24,6 +25,7 @@ pub fn handle_main_menu_inputs(
         (Changed<Interaction>, With<Button>),
     >,
     mut text_query: Query<&mut Text>,
+    mut exit: EventWriter<AppExit>,
 ) {
     if state.current() != &AppState::MainMenu { return; }
 
@@ -37,10 +39,14 @@ pub fn handle_main_menu_inputs(
 
                 match info.id {
                     ButtonID::NewGame => {
-                        info!("Starting game");
+                        match state.set(AppState::Playing) {
+                            Ok(v) => info!("Switched into Playing state"),
+                            Err(e) => warn!("Failed to switch into the playing state on button press"),
+                        }
                     },
                     ButtonID::Exit => {
                         info!("Exiting game");
+                        exit.send(AppExit);
                     },
                 }
             }
