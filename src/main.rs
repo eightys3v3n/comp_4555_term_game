@@ -78,6 +78,18 @@ fn main() {
 
 pub fn setup(
     mut commands: Commands,
+    mut windows: ResMut<Windows>,
+    config: Res<Config>,
 ) {
     commands.spawn(Camera2dBundle::default());
+
+    let mut windows = windows.iter_mut().collect::<Vec<&mut Window>>();
+
+    assert!(windows.len() > 0);
+    if (windows.len() > 1) {
+        warn!("I am not expecting more than one window but there are {}", windows.len());
+    }
+
+    // windows[0].set_title(String::from("Untitled Game"));
+    // windows[0].set_resolution(config.window.width, config.window.height);
 }
