@@ -29,23 +29,20 @@ Config(
     ),
 
     menu: (
-        continue: (
-            image_path: "continue.png",
-            z_height: 20.0,
-            width: 100.0,
-            height: 40.0,
-        ),
+        button_font: "NotoSans-Bold.ttf",
         new_game: (
+            text: "New Game",
             image_path: "continue.png",
             z_height: 20.0,
-            width: 100.0,
-            height: 40.0,
+            width: 300.0,
+            height: 160.0,
         ),
         exit: (
+            text: "Exit",
             image_path: "continue.png",
             z_height: 20.0,
-            width: 100.0,
-            height: 40.0,
+            width: 300.0,
+            height: 160.0,
         ),
     ),
 

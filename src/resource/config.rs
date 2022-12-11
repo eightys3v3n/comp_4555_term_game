@@ -62,13 +62,14 @@ pub struct EnemyConfig {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct MenuConfig {
-    pub r#continue: ButtonConfig,
+    pub button_font: String,
     pub new_game: ButtonConfig,
     pub exit: ButtonConfig,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ButtonConfig {
+    pub text: String,
     pub image_path: String,
     pub z_height: f32, // should be above the entire playable world.
     pub width: f32,
@@ -105,18 +106,16 @@ config:
   performance:
     enemy_movement_frequency: {}
   menu:
-    continue:
-      button_image: {}
-      z_height: {}
-      height: {}
-      width: {}
+    button_font: {}
     new_game:
-      button_image: {}
+      text: {}
+      image: {}
       z_height: {}
       height: {}
       width: {}
     exit:
-      button_image: {}
+      text: {}
+      image: {}
       z_height: {}
       height: {}
       width: {}",
@@ -131,14 +130,13 @@ config:
             self.map.tile_size,
             self.enemy.basic.move_speed,
             self.performance.enemy_movement_frequency,
-            self.menu.r#continue.image_path,
-            self.menu.r#continue.z_height,
-            self.menu.r#continue.height,
-            self.menu.r#continue.width,
+            self.menu.button_font,
+            self.menu.new_game.text,
             self.menu.new_game.image_path,
             self.menu.new_game.z_height,
             self.menu.new_game.height,
             self.menu.new_game.width,
+            self.menu.new_game.text,
             self.menu.exit.image_path,
             self.menu.exit.z_height,
             self.menu.exit.height,
