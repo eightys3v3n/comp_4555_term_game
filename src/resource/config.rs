@@ -63,6 +63,8 @@ pub struct EnemyConfig {
 #[derive(Debug, Deserialize, Serialize)]
 pub struct MenuConfig {
     pub r#continue: ButtonConfig,
+    pub new_game: ButtonConfig,
+    pub exit: ButtonConfig,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -103,8 +105,23 @@ config:
   performance:
     enemy_movement_frequency: {}
   menu:
-    continue_button_image: {}
-    z_height: {}",
+    continue:
+      button_image: {}
+      z_height: {}
+      height: {}
+      width: {}
+    new_game:
+      button_image: {}
+      z_height: {}
+      height: {}
+      width: {}
+    exit:
+      button_image: {}
+      z_height: {}
+      height: {}
+      width: {}",
+            self.window.width,
+            self.window.height,
             self.player.image_path,
             self.player.move_speed,
             self.player.width,
@@ -116,6 +133,16 @@ config:
             self.performance.enemy_movement_frequency,
             self.menu.r#continue.image_path,
             self.menu.r#continue.z_height,
+            self.menu.r#continue.height,
+            self.menu.r#continue.width,
+            self.menu.new_game.image_path,
+            self.menu.new_game.z_height,
+            self.menu.new_game.height,
+            self.menu.new_game.width,
+            self.menu.exit.image_path,
+            self.menu.exit.z_height,
+            self.menu.exit.height,
+            self.menu.exit.width,
        )
     }
 }

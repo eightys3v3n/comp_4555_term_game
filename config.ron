@@ -35,6 +35,19 @@ Config(
             width: 100.0,
             height: 40.0,
         ),
+        new_game: (
+            image_path: "continue.png",
+            z_height: 20.0,
+            width: 100.0,
+            height: 40.0,
+        ),
+        exit: (
+            image_path: "continue.png",
+            z_height: 20.0,
+            width: 100.0,
+            height: 40.0,
+        ),
+    ),
 
     window: (
         width: 800,
