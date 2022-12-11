@@ -35,5 +35,9 @@ Config(
             width: 100.0,
             height: 40.0,
         ),
+
+    window: (
+        width: 800,
+        height: 500,
     ),
 )

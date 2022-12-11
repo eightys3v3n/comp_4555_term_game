@@ -15,6 +15,13 @@ pub struct Config {
     pub enemy: EnemyTypesConfig,
     pub performance: PerformanceConfig,
     pub menu: MenuConfig,
+    pub window: WindowConfig,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct WindowConfig {
+    pub width: f32,
+    pub height: f32,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -78,6 +85,9 @@ impl std::fmt::Display for Config {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "
 config:
+  window:
+    width: {}
+    height: {}
   player:
     image_path:{}
     move_speed:{}

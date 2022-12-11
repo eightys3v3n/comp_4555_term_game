@@ -4,9 +4,11 @@ mod resource;
 mod enums;
 mod state;
 
+use log::{ info, warn };
 use bevy::{
     prelude::*,
     time::FixedTimestep,
+    window::*,
 };
 use resource::{
     config::Config,
