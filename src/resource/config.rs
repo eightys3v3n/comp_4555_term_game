@@ -103,7 +103,8 @@ config:
     tile_size:{}
   enemy:
     basic:
-      move_speed:{}
+      move_speed: {}
+      move_behaviour: {:?}
   performance:
     enemy_movement_frequency: {}
   menu:
@@ -132,6 +133,7 @@ config:
             self.map.default_z_height,
             self.map.tile_size,
             self.enemy.basic.move_speed,
+            self.enemy.basic.move_behaviour,
             self.performance.enemy_movement_frequency,
             self.menu.button_font,
             self.menu.new_game.id,

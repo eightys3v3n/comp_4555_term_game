@@ -52,7 +52,7 @@ pub fn setup(
             velocity: Velocity::new(10.0, 0.0),
         },
         Enemy {
-            move_behaviour: MoveBehaviour::PointedToPlayer,
+            move_behaviour: config.enemy.basic.move_behaviour.clone(),
         },
     ));
 }

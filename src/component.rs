@@ -1,5 +1,5 @@
 use bevy::prelude::*;
-use super::enums::MoveBehaviour;
+use super::enums::*;
 
 
 pub mod velocity;

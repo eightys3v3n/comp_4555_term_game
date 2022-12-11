@@ -1,12 +1,12 @@
 use serde::{Deserialize, Serialize};
 
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub enum MoveBehaviour {
     PointedToPlayer,
 }
 
-#[derive(Debug, Clone, Eq, PartialEq, Hash)]
+#[derive(Debug, Clone, Eq, PartialEq, Serialize, Deserialize, Hash)]
 pub enum AppState {
     MainMenu,
     Playing,
