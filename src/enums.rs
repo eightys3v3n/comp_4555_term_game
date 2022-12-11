@@ -12,3 +12,10 @@ pub enum AppState {
     Playing,
     Paused,
 }
+
+#[derive(Debug, Clone, Eq, PartialEq, Serialize, Deserialize)]
+pub enum ButtonID {
+    NewGame,
+    Exit,
+}
+

@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 use std::{ fs, fmt };
 use log::{ info };
 use bevy::prelude::*;
-use super::super::enums::MoveBehaviour;
+use super::super::enums::*;
 
 
 pub const DEFAULT_CONFIG_FILE: &str = "config.ron";
@@ -74,6 +74,7 @@ pub struct ButtonConfig {
     pub z_height: f32, // should be above the entire playable world.
     pub width: f32,
     pub height: f32,
+    pub id: ButtonID,
 }
 
 
@@ -108,12 +109,14 @@ config:
   menu:
     button_font: {}
     new_game:
+      id: {:?}
       text: {}
       image: {}
       z_height: {}
       height: {}
       width: {}
     exit:
+      id: {:?}
       text: {}
       image: {}
       z_height: {}
@@ -131,12 +134,14 @@ config:
             self.enemy.basic.move_speed,
             self.performance.enemy_movement_frequency,
             self.menu.button_font,
+            self.menu.new_game.id,
             self.menu.new_game.text,
             self.menu.new_game.image_path,
             self.menu.new_game.z_height,
             self.menu.new_game.height,
             self.menu.new_game.width,
-            self.menu.new_game.text,
+            self.menu.exit.id,
+            self.menu.exit.text,
             self.menu.exit.image_path,
             self.menu.exit.z_height,
             self.menu.exit.height,

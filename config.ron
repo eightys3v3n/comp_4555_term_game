@@ -31,13 +31,15 @@ Config(
     menu: (
         button_font: "NotoSans-Bold.ttf",
         new_game: (
+            id: NewGame,
             text: "New Game",
             image_path: "continue.png",
             z_height: 20.0,
             width: 300.0,
-            height: 160.0,
+            height: 155.0,
         ),
         exit: (
+            id: Exit,
             text: "Exit",
             image_path: "continue.png",
             z_height: 20.0,
