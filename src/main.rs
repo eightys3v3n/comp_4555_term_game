@@ -41,7 +41,7 @@ fn main() {
         .init_resource::<Config>()
         .init_resource::<Tilemap>()
         .init_resource::<PlayerMovedFlag>()
-        .add_state(AppState::Playing)
+        .add_state(AppState::MainMenu)
         .add_startup_system(setup)
         // .add_state(AppState::MainMenu)
         .add_system_set(
