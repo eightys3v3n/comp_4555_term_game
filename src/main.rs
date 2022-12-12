@@ -28,6 +28,7 @@ use enums::{
     AppState
 };
 use state::{ playing, main_menu, game_over };
+use component::*;
 
 
 fn main() {
@@ -62,11 +63,11 @@ fn main() {
         )
         .add_system_set(
             SystemSet::on_pause(AppState::MainMenu)
-                .with_system(main_menu::teardown)
+                .with_system(despawn_all_recursive::<MainMenu>)
         )
         .add_system_set(
             SystemSet::on_exit(AppState::MainMenu)
-                .with_system(main_menu::teardown)
+                .with_system(despawn_all_recursive::<MainMenu>)
         )
         .add_system_set(
             SystemSet::on_resume(AppState::GameOver)
@@ -82,11 +83,11 @@ fn main() {
         )
         .add_system_set(
             SystemSet::on_pause(AppState::GameOver)
-                .with_system(game_over::teardown)
+                .with_system(despawn_all_recursive::<GameOver>)
         )
         .add_system_set(
             SystemSet::on_exit(AppState::GameOver)
-                .with_system(game_over::teardown)
+                .with_system(despawn_all_recursive::<GameOver>)
         )
         .add_system_set(
             SystemSet::on_enter(AppState::Playing)
@@ -107,6 +108,18 @@ fn main() {
         )
         .run();
 }
+
+
+pub fn despawn_all_recursive<C: Component>(
+    mut commands: Commands,
+    elements: Query<Entity, With<C>>
+) {
+    info!("Tearing down a class");
+    elements.for_each(|entity| {
+        commands.entity(entity).despawn_recursive();
+    });
+}
+
 
 
 pub fn setup(

@@ -65,13 +65,3 @@ pub fn setup(
             ));
         });
 }
-
-pub fn teardown(
-    mut commands: Commands,
-    main_menu_elements: Query<Entity, With<MainMenu>>
-) {
-    info!("Tearing down Main Menu");
-    main_menu_elements.for_each(|entity| {
-        commands.entity(entity).despawn_recursive();
-    });
-}
