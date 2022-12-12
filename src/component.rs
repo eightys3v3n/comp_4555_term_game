@@ -25,6 +25,9 @@ pub struct Player;
 pub struct MainMenu;
 
 #[derive(Component)]
+pub struct GameOver;
+
+#[derive(Component)]
 pub struct Tile;
 
 

@@ -10,6 +10,7 @@ pub enum MoveBehaviour {
 pub enum AppState {
     MainMenu,
     Playing,
+    GameOver,
     Paused,
 }
 
