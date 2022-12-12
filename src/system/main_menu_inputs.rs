@@ -23,7 +23,10 @@ pub fn handle_main_menu_inputs(
     mut text_query: Query<&mut Text>,
     mut exit: EventWriter<AppExit>,
 ) {
-    if state.current() != &AppState::MainMenu { return; }
+    if state.current() != &AppState::MainMenu {
+        keyboard_events.clear();
+        return;
+    }
 
     for (interaction, info, children) in &mut button_interaction {
         let mut text = text_query.get_mut(children[0]).unwrap();

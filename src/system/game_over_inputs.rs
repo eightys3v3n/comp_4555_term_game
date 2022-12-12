@@ -26,7 +26,10 @@ pub fn handle_game_over_inputs(
     // Need to pop self from state stack when leaving, then set to main menu.
 
 
-    if state.current() != &AppState::GameOver { return; }
+    if state.current() != &AppState::GameOver {
+        keyboard_events.clear();
+        return;
+    }
 
     for (interaction, info, children) in &mut button_interaction {
         let mut text = text_query.get_mut(children[0]).unwrap();

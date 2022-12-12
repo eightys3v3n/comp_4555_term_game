@@ -57,10 +57,10 @@ fn main() {
             SystemSet::on_resume(AppState::MainMenu)
                 .with_system(main_menu::setup)
         )
-        .add_system_set(
-            SystemSet::on_update(AppState::MainMenu)
-                .with_system(handle_main_menu_inputs)
-        )
+        // .add_system_set(
+        //     SystemSet::on_update(AppState::MainMenu)
+        //         .with_system(handle_main_menu_inputs)
+        // )
         .add_system_set(
             SystemSet::on_pause(AppState::MainMenu)
                 .with_system(despawn_all_recursive::<MainMenu>)
@@ -77,10 +77,10 @@ fn main() {
             SystemSet::on_enter(AppState::GameOver)
                 .with_system(game_over::setup)
         )
-        .add_system_set(
-            SystemSet::on_update(AppState::GameOver)
-                .with_system(handle_game_over_inputs)
-        )
+        // .add_system_set(
+        //     SystemSet::on_update(AppState::GameOver)
+        //         .with_system(handle_game_over_inputs)
+        // )
         .add_system_set(
             SystemSet::on_pause(AppState::GameOver)
                 .with_system(despawn_all_recursive::<GameOver>)
@@ -104,8 +104,12 @@ fn main() {
             SystemSet::on_update(AppState::Playing)
                 .with_system(set_player_movements)
                 .with_system(apply_velocity)
-                .with_system(handle_playing_inputs)
+                .with_system(debug_key)
+                // .with_system(handle_playing_inputs)
         )
+        .add_system(handle_game_over_inputs)
+        .add_system(handle_playing_inputs)
+        .add_system(handle_main_menu_inputs)
         .run();
 }
 
@@ -137,4 +141,17 @@ pub fn setup(
 
     // windows[0].set_title(String::from("Untitled Game"));
     // windows[0].set_resolution(config.window.width, config.window.height);
+}
+
+
+pub fn debug_key(
+    keys: Res<Input<KeyCode>>,
+    mut player_health: Query<&mut Health, With<Player>>,
+) {
+    let mut health = player_health.single_mut();
+
+    if keys.just_pressed(KeyCode::Q) {
+        info!("Player health from {:?} to {:?}", health, health.current-10.);
+        health.current -= 10.;
+    }
 }

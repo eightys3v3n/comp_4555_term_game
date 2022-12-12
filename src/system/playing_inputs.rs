@@ -14,7 +14,10 @@ pub fn handle_playing_inputs(
     mut state: ResMut<State<AppState>>,
     mut keyboard_events: EventReader<KeyboardInput>,
 ) {
-    if state.current() != &AppState::Playing { return; }
+    if state.current() != &AppState::Playing {
+        keyboard_events.clear();
+        return;
+    }
 
     for event in keyboard_events.iter() {
         match event.state {

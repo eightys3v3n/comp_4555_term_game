@@ -7,16 +7,6 @@ use bevy::{
 use super::super::resource::tilemap::Tilemap;
 
 
-pub fn debug_key(
-    keys: Res<Input<KeyCode>>,
-    tilemap: Res<Tilemap>,
-) {
-    if keys.just_pressed(KeyCode::Q) {
-        info!("Pressed Q");
-        println!("Found {} tiles", tilemap.tiles.len());
-    }
-}
-
 /// This system prints out all keyboard events as they come in
 pub fn print_keyboard_event_system(mut keyboard_input_events: EventReader<KeyboardInput>) {
     for event in keyboard_input_events.iter() {
