@@ -43,6 +43,7 @@ pub struct PlayerConfig {
     pub width: f32,
     pub height: f32,
     pub z_height: f32,
+    pub default_health: f32,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -98,6 +99,7 @@ config:
     move_speed:{}
     width:{}
     height:{}
+    default_health:{}
   map:
     grass_texture_path:{}
     default_z_height:{}
@@ -137,6 +139,7 @@ config:
             self.player.move_speed,
             self.player.width,
             self.player.height,
+            self.player.default_health,
             self.map.grass_texture_path,
             self.map.default_z_height,
             self.map.tile_size,

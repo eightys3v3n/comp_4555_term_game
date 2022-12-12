@@ -151,7 +151,7 @@ pub fn debug_key(
     let mut health = player_health.single_mut();
 
     if keys.just_pressed(KeyCode::Q) {
-        info!("Player health from {:?} to {:?}", health, health.current-10.);
+        info!("Player health from {} to {}", health.to_string(), health.current-10.);
         health.current -= 10.;
     }
 }

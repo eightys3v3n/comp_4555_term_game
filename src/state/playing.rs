@@ -22,17 +22,19 @@ pub fn setup(
     }
 
     // Spawn in all game stuff.
-    commands.spawn((Character {
-        sprite: SpriteBundle {
-            texture: asset_server.load(&config.player.image_path),
-            transform: Transform::from_xyz(0.0, 0.0, config.player.z_height),
-            sprite: Sprite {
-                custom_size: Some(Vec2::new(config.player.width, config.player.height)),
+    commands.spawn((
+        Character {
+            sprite: SpriteBundle {
+                texture: asset_server.load(&config.player.image_path),
+                transform: Transform::from_xyz(0.0, 0.0, config.player.z_height),
+                sprite: Sprite {
+                    custom_size: Some(Vec2::new(config.player.width, config.player.height)),
+                    ..default()
+                },
                 ..default()
             },
-            ..default()
-        },
-        velocity: Velocity::new(0.0, 0.0),
+            velocity: Velocity::new(0.0, 0.0),
+            health: Health::new(config.player.default_health),
         },
         Player,
     ));
@@ -49,6 +51,7 @@ pub fn setup(
                 ..default()
             },
             velocity: Velocity::new(10.0, 0.0),
+            health: Health::new(config.player.default_health),
         },
         Enemy {
             move_behaviour: config.enemy.basic.move_behaviour.clone(),

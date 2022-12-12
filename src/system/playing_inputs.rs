@@ -6,9 +6,7 @@ use bevy::{
     },
 };
 use log::warn;
-use super::super::{
-    enums::AppState,
-};
+use super::super::enums::AppState;
 
 pub fn handle_playing_inputs(
     mut state: ResMut<State<AppState>>,
