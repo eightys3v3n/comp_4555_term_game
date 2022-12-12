@@ -22,11 +22,12 @@ use system::{
     velocity::apply_velocity,
     playing_inputs::handle_playing_inputs,
     main_menu_inputs::handle_main_menu_inputs,
+    game_over_inputs::handle_game_over_inputs,
 };
 use enums::{
     AppState
 };
-use state::{ playing, main_menu };
+use state::{ playing, main_menu, game_over };
 
 
 fn main() {
@@ -65,6 +66,22 @@ fn main() {
         .add_system_set(
             SystemSet::on_resume(AppState::MainMenu)
                 .with_system(main_menu::show)
+        )
+        .add_system_set(
+            SystemSet::on_enter(AppState::GameOver)
+                .with_system(game_over::setup)
+        )
+        .add_system_set(
+            SystemSet::on_update(AppState::GameOver)
+                .with_system(handle_game_over_inputs)
+        )
+        .add_system_set(
+            SystemSet::on_pause(AppState::GameOver)
+                .with_system(game_over::hide)
+        )
+        .add_system_set(
+            SystemSet::on_resume(AppState::GameOver)
+                .with_system(game_over::show)
         )
         .add_system_set(
             SystemSet::on_enter(AppState::Playing)
