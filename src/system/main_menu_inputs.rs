@@ -4,20 +4,16 @@ use bevy::{
     input::{
         keyboard::KeyboardInput,
         ButtonState,
-        mouse::MouseButtonInput,
     },
 };
 use log::{ warn, info };
 use super::super::component::*;
 use super::super::{
-    resource::{ config::Config },
     enums::*,
 };
 
 
 pub fn handle_main_menu_inputs(
-    keys: Res<Input<KeyCode>>,
-    config: Res<Config>,
     mut state: ResMut<State<AppState>>,
     mut keyboard_events: EventReader<KeyboardInput>,
     mut button_interaction: Query<
@@ -40,8 +36,8 @@ pub fn handle_main_menu_inputs(
                 match info.id {
                     ButtonID::NewGame => {
                         match state.set(AppState::Playing) {
-                            Ok(v) => info!("Switched into Playing state"),
-                            Err(e) => warn!("Failed to switch into the playing state on button press"),
+                            Ok(_) => info!("Switched into Playing state"),
+                            Err(e) => warn!("Failed to switch into the playing state on button press. {}", e),
                         }
                     },
                     ButtonID::Exit => {
@@ -68,8 +64,8 @@ pub fn handle_main_menu_inputs(
                     Some(key_code) => {
                         if key_code == KeyCode::Return {
                             match state.push(AppState::Playing) {
-                                Ok(v) => info!("Switched into Playing state"),
-                                Err(e) => warn!("Failed to switch into the playing state on Escape pressed"),
+                                Ok(_) => info!("Switched into Playing state"),
+                                Err(e) => warn!("Failed to switch into the playing state on Escape pressed. {}", e),
                             }
                         }
                     }
@@ -79,14 +75,4 @@ pub fn handle_main_menu_inputs(
             ButtonState::Released => {}
         }
     }
-
-    // if keys.just_pressed(KeyCode::Escape) {
-    //     info!("Switching to playing.");
-    //     match state.set(AppState::Playing) {
-    //         Ok(v) => {},
-    //         Err(e) => warn!("Failed to switch into the plaing state on Escape pressed"),
-    //     }
-    // }
-
-
 }

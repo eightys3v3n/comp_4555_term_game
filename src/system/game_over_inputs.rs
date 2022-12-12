@@ -4,20 +4,16 @@ use bevy::{
     input::{
         keyboard::KeyboardInput,
         ButtonState,
-        mouse::MouseButtonInput,
     },
 };
 use log::{ warn, info };
 use super::super::component::*;
 use super::super::{
-    resource::{ config::Config },
     enums::*,
 };
 
 
 pub fn handle_game_over_inputs(
-    keys: Res<Input<KeyCode>>,
-    config: Res<Config>,
     mut state: ResMut<State<AppState>>,
     mut keyboard_events: EventReader<KeyboardInput>,
     mut button_interaction: Query<
@@ -43,7 +39,7 @@ pub fn handle_game_over_inputs(
                 match info.id {
                     ButtonID::MainMenu => {
                         match state.set(AppState::MainMenu) {
-                            Ok(v) => info!("Sweitched to Main Menu."),
+                            Ok(_) => info!("Sweitched to Main Menu."),
                             Err(e) => warn!("Failed to switch to Main Menu on press. {}", e),
                         };
                     },
@@ -61,6 +57,25 @@ pub fn handle_game_over_inputs(
             Interaction::None => {
                 text.sections[0].value = "Button".to_string();
             }
+        }
+    }
+
+    for event in keyboard_events.iter() {
+        match event.state {
+            ButtonState::Pressed => {
+                match event.key_code {
+                    Some(key_code) => {
+                        if key_code == KeyCode::Return {
+                            match state.set(AppState::MainMenu) {
+                                Ok(_) => info!("Sweitched to Main Menu."),
+                                Err(e) => warn!("Failed to switch to Main Menu on press. {}", e),
+                            };
+                        }
+                    }
+                    None => {}
+                }
+            },
+            ButtonState::Released => {}
         }
     }
 }

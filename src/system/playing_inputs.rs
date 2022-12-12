@@ -6,15 +6,11 @@ use bevy::{
     },
 };
 use log::warn;
-use super::super::component::*;
 use super::super::{
-    resource::{ config::Config },
     enums::AppState,
 };
 
 pub fn handle_playing_inputs(
-    keys: Res<Input<KeyCode>>,
-    config: Res<Config>,
     mut state: ResMut<State<AppState>>,
     mut keyboard_events: EventReader<KeyboardInput>,
 ) {
@@ -27,13 +23,13 @@ pub fn handle_playing_inputs(
                     Some(key_code) => {
                         if key_code == KeyCode::Escape {
                             match state.set(AppState::MainMenu) {
-                                Ok(v) => info!("Switched into Main Menu state"),
-                                Err(e) => warn!("Failed to switch into the Main Menu state on Escape pressed"),
+                                Ok(_) => info!("Switched into Main Menu state"),
+                                Err(e) => warn!("Failed to switch into the Main Menu state on Escape pressed. {}", e),
                             }
                         } else if key_code == KeyCode::Grave { // ~ symbol
                             match state.set(AppState::GameOver) {
-                                Ok(v) => info!("Switched into Game Over state"),
-                                Err(e) => warn!("Failed to switch into the Game Over state on ` pressed"),
+                                Ok(_) => info!("Switched into Game Over state"),
+                                Err(e) => warn!("Failed to switch into the Game Over state on ` pressed. {}", e),
                             }
                         }
                     }

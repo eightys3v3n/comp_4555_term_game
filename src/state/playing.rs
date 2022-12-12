@@ -5,7 +5,6 @@ use super::super::{
         tilemap::Tilemap
     },
     component::*,
-    enums::*,
 };
 
 

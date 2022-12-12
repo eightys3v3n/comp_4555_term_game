@@ -5,7 +5,7 @@ mod enums;
 mod state;
 mod ui;
 
-use log::{ info, warn };
+use log::{ warn };
 use bevy::{
     prelude::*,
     time::FixedTimestep,
@@ -111,12 +111,11 @@ fn main() {
 
 pub fn setup(
     mut commands: Commands,
-    mut windows: ResMut<Windows>,
-    config: Res<Config>,
+    windows: ResMut<Windows>,
 ) {
     commands.spawn(Camera2dBundle::default());
 
-    let mut windows = windows.iter_mut().collect::<Vec<&mut Window>>();
+    let windows = windows.iter().collect::<Vec<&Window>>();
 
     assert!(windows.len() > 0);
     if windows.len() > 1 {

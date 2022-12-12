@@ -1,16 +1,11 @@
 use bevy::{
     prelude::*,
-    ui::UiImage,
 };
 use super::super::{
     resource::{
-        config::{
-            Config,
-            ButtonConfig,
-        },
+        config::Config,
     },
     component::*,
-    enums::*,
     ui::*,
 };
 

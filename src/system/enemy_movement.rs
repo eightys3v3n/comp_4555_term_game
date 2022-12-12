@@ -3,13 +3,11 @@ use bevy::{
 };
 use log::warn;
 use super::super::{
-    resource::config::Config,
     component::*,
     enums::MoveBehaviour,
 };
 
 pub fn enemy_movement(
-    config: Res<Config>,
     player: Query<(&Transform, (With<Player>, Without<Enemy>))>,
     mut enemies: Query<(&mut Transform, &Enemy, &mut Velocity, (With<Enemy>, Without<Player>))>,
 ) {

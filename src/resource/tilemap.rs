@@ -42,8 +42,8 @@ impl Tilemap {
     pub fn new(width: usize, height: usize, centre_x: u64, centre_y: u64) -> Self {
         let mut tiles: Vec<Tile> = Vec::with_capacity((width * height) as usize);
 
-        for y in 0..height {
-            for x in 0..width {
+        for _ in 0..height {
+            for _ in 0..width {
                 tiles.push(Tile::new(TileType::Grass));
             }
         }
@@ -57,11 +57,11 @@ impl Tilemap {
         }
     }
 
-    pub fn map_pos_to_array_pos(&self, x: i64, y: i64) -> (u64, u64) {
+    pub fn map_pos_to_array_pos(&self, _x: i64, _y: i64) -> (u64, u64) {
         return (10, 10);
     }
 
-    pub fn array_pos_to_map_pos(&self, x: u64, y: u64) -> (i64, i64) {
+    pub fn array_pos_to_map_pos(&self, _x: u64, _y: u64) -> (i64, i64) {
         return (10, 10);
     }
 

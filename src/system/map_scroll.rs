@@ -19,11 +19,11 @@ pub fn map_scroll(
     // info!("Player has moved since last frame");
 
     match camera.get_single() {
-        Ok(camera_transform) => {
+        Ok(_camera_transform) => {
             match player.get_single() {
-                Ok(player_transform) => {
+                Ok(_player_transform) => {
                     player_moved.moved_since_last_frame = false;
-                    for (tile, _) in tiles.iter() {
+                    for (_tile, _) in tiles.iter() {
                         // println!("Moving tile: ({}, {})", &tile.translation.x, &tile.translation.y)
                     }
                 },

@@ -1,7 +1,5 @@
 use bevy::{
     prelude::*,
-    ui::UiImage,
-    ecs::component::Component,
 };
 use super::{
     resource::{
@@ -11,10 +9,9 @@ use super::{
         },
     },
     component::*,
-    enums::*,
 };
 
-pub fn spawn_button(mut parent: &mut ChildBuilder<'_, '_, '_>,
+pub fn spawn_button(parent: &mut ChildBuilder<'_, '_, '_>,
                 config: &Res<Config>,
                 button_config: &ButtonConfig,
                 asset_server: &Res<AssetServer>) {
