@@ -18,5 +18,6 @@ pub enum AppState {
 pub enum ButtonID {
     NewGame,
     Exit,
+    MainMenu,
 }
 

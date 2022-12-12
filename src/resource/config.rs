@@ -65,6 +65,7 @@ pub struct MenuConfig {
     pub button_font: String,
     pub new_game: ButtonConfig,
     pub exit: ButtonConfig,
+    pub main_menu: ButtonConfig,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -122,6 +123,13 @@ config:
       image: {}
       z_height: {}
       height: {}
+      width: {}
+    main_menu:
+      id: {:?}
+      text: {}
+      image: {}
+      z_height: {}
+      height: {}
       width: {}",
             self.window.width,
             self.window.height,
@@ -148,6 +156,12 @@ config:
             self.menu.exit.z_height,
             self.menu.exit.height,
             self.menu.exit.width,
+            self.menu.main_menu.id,
+            self.menu.main_menu.text,
+            self.menu.main_menu.image_path,
+            self.menu.main_menu.z_height,
+            self.menu.main_menu.height,
+            self.menu.main_menu.width,
        )
     }
 }

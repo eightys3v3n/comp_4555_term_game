@@ -46,6 +46,14 @@ Config(
             width: 300.0,
             height: 160.0,
         ),
+        main_menu: (
+            id: MainMenu,
+            text: "Main Menu",
+            image_path: "continue.png",
+            z_height: 20.0,
+            width: 300.0,
+            height: 160.0,
+        ),
     ),
 
     window: (
