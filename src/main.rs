@@ -3,6 +3,7 @@ mod component;
 mod resource;
 mod enums;
 mod state;
+mod ui;
 
 use log::{ info, warn };
 use bevy::{
