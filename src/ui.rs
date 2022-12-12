@@ -1,6 +1,7 @@
 use bevy::{
     prelude::*,
     ui::UiImage,
+    ecs::component::Component,
 };
 use super::{
     resource::{
@@ -16,7 +17,8 @@ use super::{
 pub fn spawn_button(mut parent: &mut ChildBuilder<'_, '_, '_>,
                 config: &Res<Config>,
                 button_config: &ButtonConfig,
-                asset_server: &Res<AssetServer>,) {
+                asset_server: &Res<AssetServer>,
+                tag: impl Bundle) {
     parent.spawn((
         ButtonBundle {
             style: Style {
@@ -37,6 +39,7 @@ pub fn spawn_button(mut parent: &mut ChildBuilder<'_, '_, '_>,
         ButtonInfo {
             id: button_config.id.clone(),
         },
+        tag,
     ))
     .with_children(|parent| {
         parent.spawn(TextBundle::from_section(

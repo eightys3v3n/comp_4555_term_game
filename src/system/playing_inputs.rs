@@ -26,9 +26,14 @@ pub fn handle_playing_inputs(
                 match event.key_code {
                     Some(key_code) => {
                         if key_code == KeyCode::Escape {
-                            match state.pop() {
+                            match state.set(AppState::MainMenu) {
                                 Ok(v) => info!("Switched into Main Menu state"),
-                                Err(e) => warn!("Failed to switch into the main menu state on Escape pressed"),
+                                Err(e) => warn!("Failed to switch into the Main Menu state on Escape pressed"),
+                            }
+                        } else if key_code == KeyCode::Grave { // ~ symbol
+                            match state.set(AppState::GameOver) {
+                                Ok(v) => info!("Switched into Game Over state"),
+                                Err(e) => warn!("Failed to switch into the Game Over state on ` pressed"),
                             }
                         }
                     }
@@ -38,12 +43,4 @@ pub fn handle_playing_inputs(
             ButtonState::Released => {}
         }
     }
-
-    // if keys.just_pressed(KeyCode::Escape) {
-    //     info!("Switching to main menu.");
-    //     match state.set(AppState::MainMenu) {
-    //         Ok(v) => {},
-    //         Err(e) => warn!("Failed to switch into the main menu state on Escape pressed"),
-    //     }
-    // }
 }

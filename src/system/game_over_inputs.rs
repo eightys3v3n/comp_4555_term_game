@@ -22,41 +22,45 @@ pub fn handle_game_over_inputs(
     mut keyboard_events: EventReader<KeyboardInput>,
     mut button_interaction: Query<
         (&Interaction, &ButtonInfo, &Children),
-        (Changed<Interaction>, With<Button>),
+        (Changed<Interaction>, (With<Button>, With<GameOver>)),
     >,
     mut text_query: Query<&mut Text>,
     mut exit: EventWriter<AppExit>,
 ) {
-    // if state.current() != &AppState::MainMenu { return; }
+    // Need to pop self from state stack when leaving, then set to main menu.
 
-    // for (interaction, info, children) in &mut button_interaction {
-    //     let mut text = text_query.get_mut(children[0]).unwrap();
 
-    //     match *interaction {
-    //         Interaction::Clicked => {
-    //             text.sections[0].value = "Press".to_string();
-    //             info!("Pressed {:?} button", info.id);
+    if state.current() != &AppState::GameOver { return; }
 
-    //             match info.id {
-    //                 ButtonID::NewGame => {
-    //                     match state.push(AppState::Playing) {
-    //                         Ok(v) => info!("Switched into Playing state"),
-    //                         Err(e) => warn!("Failed to switch into the playing state on button press"),
-    //                     }
-    //                 },
-    //                 ButtonID::Exit => {
-    //                     info!("Exiting game");
-    //                     exit.send(AppExit);
-    //                 },
-    //             }
-    //         }
-    //         Interaction::Hovered => {
-    //             text.sections[0].value = "Hover".to_string();
-    //             info!("Hovering {:?} button", info.id);
-    //         }
-    //         Interaction::None => {
-    //             text.sections[0].value = "Button".to_string();
-    //         }
-    //     }
-    // }
+    for (interaction, info, children) in &mut button_interaction {
+        let mut text = text_query.get_mut(children[0]).unwrap();
+
+        match *interaction {
+            Interaction::Clicked => {
+                text.sections[0].value = "Press".to_string();
+                info!("Pressed {:?} button", info.id);
+
+                match info.id {
+                    ButtonID::MainMenu => {
+                        match state.set(AppState::MainMenu) {
+                            Ok(v) => info!("Sweitched to Main Menu."),
+                            Err(e) => warn!("Failed to switch to Main Menu on press. {}", e),
+                        };
+                    },
+                    ButtonID::Exit => {
+                        info!("Exiting game");
+                        exit.send(AppExit);
+                    },
+                    _ => {},
+                }
+            }
+            Interaction::Hovered => {
+                text.sections[0].value = "Hover".to_string();
+                info!("Hovering {:?} button", info.id);
+            }
+            Interaction::None => {
+                text.sections[0].value = "Button".to_string();
+            }
+        }
+    }
 }

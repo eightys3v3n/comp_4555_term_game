@@ -53,10 +53,11 @@ pub fn setup(
                     background_color: Color::rgb(0., 1., 0.).into(),
                     ..default()
                 },
+                MainMenu,
             ))
             .with_children(|parent| {
-                spawn_button(parent, &config, &config.menu.new_game, &asset_server);
-                spawn_button(parent, &config, &config.menu.exit, &asset_server);
+                spawn_button(parent, &config, &config.menu.new_game, &asset_server, MainMenu);
+                spawn_button(parent, &config, &config.menu.exit, &asset_server, MainMenu);
             });
             parent.spawn((
                 NodeBundle {
@@ -71,23 +72,12 @@ pub fn setup(
         });
 }
 
-
-
-
-pub fn hide(
+pub fn teardown(
     mut commands: Commands,
-    mut ui_elements: Query<&mut Visibility, With<MainMenu>>,
+    main_menu_elements: Query<Entity, With<MainMenu>>
 ) {
-    for (mut visibility) in ui_elements.iter_mut() {
-        visibility.is_visible = false;
-    }
-}
-
-pub fn show(
-    mut commands: Commands,
-    mut ui_elements: Query<&mut Visibility, With<MainMenu>>,
-) {
-    for (mut visibility) in ui_elements.iter_mut() {
-        visibility.is_visible = true;
-    }
+    info!("Tearing down Main Menu");
+    main_menu_elements.for_each(|entity| {
+        commands.entity(entity).despawn_recursive();
+    });
 }

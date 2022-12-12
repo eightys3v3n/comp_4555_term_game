@@ -22,7 +22,7 @@ pub fn handle_main_menu_inputs(
     mut keyboard_events: EventReader<KeyboardInput>,
     mut button_interaction: Query<
         (&Interaction, &ButtonInfo, &Children),
-        (Changed<Interaction>, With<Button>),
+        (Changed<Interaction>, (With<Button>, With<MainMenu>)),
     >,
     mut text_query: Query<&mut Text>,
     mut exit: EventWriter<AppExit>,
@@ -61,24 +61,24 @@ pub fn handle_main_menu_inputs(
         }
     }
 
-    // for event in keyboard_events.iter() {
-    //     match event.state {
-    //         ButtonState::Pressed => {
-    //             match event.key_code {
-    //                 Some(key_code) => {
-    //                     if key_code == KeyCode::Escape {
-    //                         match state.set(AppState::Playing) {
-    //                             Ok(v) => info!("Switched into Playing state"),
-    //                             Err(e) => warn!("Failed to switch into the playing state on Escape pressed"),
-    //                         }
-    //                     }
-    //                 }
-    //                 None => {}
-    //             }
-    //         },
-    //         ButtonState::Released => {}
-    //     }
-    // }
+    for event in keyboard_events.iter() {
+        match event.state {
+            ButtonState::Pressed => {
+                match event.key_code {
+                    Some(key_code) => {
+                        if key_code == KeyCode::Return {
+                            match state.push(AppState::Playing) {
+                                Ok(v) => info!("Switched into Playing state"),
+                                Err(e) => warn!("Failed to switch into the playing state on Escape pressed"),
+                            }
+                        }
+                    }
+                    None => {}
+                }
+            },
+            ButtonState::Released => {}
+        }
+    }
 
     // if keys.just_pressed(KeyCode::Escape) {
     //     info!("Switching to playing.");

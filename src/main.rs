@@ -51,21 +51,26 @@ fn main() {
         .add_system_set(
             SystemSet::on_enter(AppState::MainMenu)
                 .with_system(main_menu::setup)
-                // .with_system(button_press)
+        )
+        .add_system_set(
+            SystemSet::on_resume(AppState::MainMenu)
+                .with_system(main_menu::setup)
         )
         .add_system_set(
             SystemSet::on_update(AppState::MainMenu)
                 .with_system(handle_main_menu_inputs)
-                // .with_system(main_menu::setup)
-                // .with_system(button_press)
         )
         .add_system_set(
             SystemSet::on_pause(AppState::MainMenu)
-                .with_system(main_menu::hide)
+                .with_system(main_menu::teardown)
         )
         .add_system_set(
-            SystemSet::on_resume(AppState::MainMenu)
-                .with_system(main_menu::show)
+            SystemSet::on_exit(AppState::MainMenu)
+                .with_system(main_menu::teardown)
+        )
+        .add_system_set(
+            SystemSet::on_resume(AppState::GameOver)
+                .with_system(game_over::setup)
         )
         .add_system_set(
             SystemSet::on_enter(AppState::GameOver)
@@ -77,11 +82,11 @@ fn main() {
         )
         .add_system_set(
             SystemSet::on_pause(AppState::GameOver)
-                .with_system(game_over::hide)
+                .with_system(game_over::teardown)
         )
         .add_system_set(
-            SystemSet::on_resume(AppState::GameOver)
-                .with_system(game_over::show)
+            SystemSet::on_exit(AppState::GameOver)
+                .with_system(game_over::teardown)
         )
         .add_system_set(
             SystemSet::on_enter(AppState::Playing)
