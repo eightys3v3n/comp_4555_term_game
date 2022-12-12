@@ -22,7 +22,7 @@ pub fn handle_game_over_inputs(
     mut keyboard_events: EventReader<KeyboardInput>,
     mut button_interaction: Query<
         (&Interaction, &ButtonInfo, &Children),
-        (Changed<Interaction>, (With<Button>, With<GameOver>)),
+        (Changed<Interaction>, With<Button>),
     >,
     mut text_query: Query<&mut Text>,
     mut exit: EventWriter<AppExit>,

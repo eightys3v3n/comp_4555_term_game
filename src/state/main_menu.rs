@@ -53,11 +53,10 @@ pub fn setup(
                     background_color: Color::rgb(0., 1., 0.).into(),
                     ..default()
                 },
-                MainMenu,
             ))
             .with_children(|parent| {
-                spawn_button(parent, &config, &config.menu.new_game, &asset_server, MainMenu);
-                spawn_button(parent, &config, &config.menu.exit, &asset_server, MainMenu);
+                spawn_button(parent, &config, &config.menu.new_game, &asset_server);
+                spawn_button(parent, &config, &config.menu.exit, &asset_server);
             });
             parent.spawn((
                 NodeBundle {

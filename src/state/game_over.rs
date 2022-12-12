@@ -65,7 +65,7 @@ pub fn setup(
                         font: asset_server.load(&config.menu.button_font),
                     },
                 ));
-                spawn_button(parent, &config, &config.menu.main_menu, &asset_server, GameOver);
+                spawn_button(parent, &config, &config.menu.main_menu, &asset_server);
             });
             parent.spawn((
                 NodeBundle {
