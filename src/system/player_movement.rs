@@ -9,10 +9,10 @@ use super::super::resource::{
 pub fn set_player_movements(
     keys: Res<Input<KeyCode>>,
     config: Res<Config>,
-    mut query: Query<(&Player, &mut Velocity)>,
+    mut query: Query<&mut Velocity, With<Player>>,
 ) {
     match query.get_single_mut() {
-        Ok((_, mut velocity)) => {
+        Ok(mut velocity) => {
             let (mut vel_x, mut vel_y) = velocity.to_xy();
 
             if keys.just_pressed(KeyCode::W) {
