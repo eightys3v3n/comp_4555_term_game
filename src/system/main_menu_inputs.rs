@@ -39,7 +39,7 @@ pub fn handle_main_menu_inputs(
 
                 match info.id {
                     ButtonID::NewGame => {
-                        match state.set(AppState::Playing) {
+                        match state.push(AppState::Playing) {
                             Ok(v) => info!("Switched into Playing state"),
                             Err(e) => warn!("Failed to switch into the playing state on button press"),
                         }

@@ -58,6 +58,14 @@ fn main() {
                 // .with_system(button_press)
         )
         .add_system_set(
+            SystemSet::on_pause(AppState::MainMenu)
+                .with_system(main_menu::hide)
+        )
+        .add_system_set(
+            SystemSet::on_resume(AppState::MainMenu)
+                .with_system(main_menu::show)
+        )
+        .add_system_set(
             SystemSet::on_enter(AppState::Playing)
                 .with_system(playing::setup)
                 .with_system(playing::load_map)

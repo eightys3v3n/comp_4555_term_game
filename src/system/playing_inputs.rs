@@ -26,7 +26,7 @@ pub fn handle_playing_inputs(
                 match event.key_code {
                     Some(key_code) => {
                         if key_code == KeyCode::Escape {
-                            match state.set(AppState::MainMenu) {
+                            match state.pop() {
                                 Ok(v) => info!("Switched into Main Menu state"),
                                 Err(e) => warn!("Failed to switch into the main menu state on Escape pressed"),
                             }
