@@ -57,7 +57,6 @@ fn main() {
         .add_event::<event::RoundEndEvent>()
         .add_event::<event::RoundStartEvent>()
         .add_startup_system(setup)
-        // .add_state(AppState::MainMenu)
         .add_system_set(
             SystemSet::on_enter(AppState::MainMenu)
                 .with_system(main_menu::setup)
@@ -66,10 +65,6 @@ fn main() {
             SystemSet::on_resume(AppState::MainMenu)
                 .with_system(main_menu::setup)
         )
-        // .add_system_set(
-        //     SystemSet::on_update(AppState::MainMenu)
-        //         .with_system(handle_main_menu_inputs)
-        // )
         .add_system_set(
             SystemSet::on_pause(AppState::MainMenu)
                 .with_system(despawn_all_recursive::<MainMenu>)
@@ -86,10 +81,6 @@ fn main() {
             SystemSet::on_enter(AppState::GameOver)
                 .with_system(game_over::setup)
         )
-        // .add_system_set(
-        //     SystemSet::on_update(AppState::GameOver)
-        //         .with_system(handle_game_over_inputs)
-        // )
         .add_system_set(
             SystemSet::on_pause(AppState::GameOver)
                 .with_system(despawn_all_recursive::<GameOver>)
