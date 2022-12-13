@@ -8,14 +8,14 @@ use super::super::{
 };
 
 pub fn enemy_movement(
-    player: Query<(&Transform, (With<Player>, Without<Enemy>))>,
-    mut enemies: Query<(&mut Transform, &Enemy, &mut Velocity, (With<Enemy>, Without<Player>))>,
+    player: Query<&Transform, (With<Player>, Without<Enemy>)>,
+    mut enemies: Query<(&mut Transform, &Enemy, &mut Velocity), (With<Enemy>, Without<Player>)>,
 ) {
-    for (mut enemy_transform, enemy, mut enemy_velocity, _) in enemies.iter_mut() {
+    for (mut enemy_transform, enemy, mut enemy_velocity) in enemies.iter_mut() {
         match enemy.move_behaviour {
             MoveBehaviour::PointedToPlayer => {
                 match player.get_single() {
-                    Ok((player_transform, _)) => {
+                    Ok((player_transform)) => {
                         let displ_y = player_transform.translation.y - enemy_transform.translation.y;
                         let displ_x = player_transform.translation.x - enemy_transform.translation.x;
                         let displ_vel = Velocity::new_xy(displ_x, displ_y);

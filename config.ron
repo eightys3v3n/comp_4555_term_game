@@ -5,6 +5,7 @@ Config(
         width: 50.0,
         height: 50.0,
         z_height: 10.0,
+        default_health: 100.0,
     ),
 
     map: (

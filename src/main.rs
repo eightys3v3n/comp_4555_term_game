@@ -23,6 +23,7 @@ use system::{
     playing_inputs::handle_playing_inputs,
     main_menu_inputs::handle_main_menu_inputs,
     game_over_inputs::handle_game_over_inputs,
+    character_killer::character_killer,
 };
 use enums::{
     AppState
@@ -105,6 +106,7 @@ fn main() {
                 .with_system(set_player_movements)
                 .with_system(apply_velocity)
                 .with_system(debug_key)
+                .with_system(character_killer)
                 // .with_system(handle_playing_inputs)
         )
         .add_system(handle_game_over_inputs)
@@ -146,12 +148,25 @@ pub fn setup(
 
 pub fn debug_key(
     keys: Res<Input<KeyCode>>,
-    mut player_health: Query<&mut Health, With<Player>>,
+    mut query: Query<(&mut Health, Option<&Enemy>, Option<&Player>), Or<(With<Enemy>, With<Player>)>>,
 ) {
-    let mut health = player_health.single_mut();
+    if ! query.is_empty() {
+        for (mut health, enemy, player) in query.iter_mut() {
+            let mut character_type = "None";
 
-    if keys.just_pressed(KeyCode::Q) {
-        info!("Player health from {} to {}", health.to_string(), health.current-10.);
-        health.current -= 10.;
+            match enemy {
+                Some(is_enemy) => character_type = "Enemy",
+                None => {},
+            };
+            match player {
+                Some(is_player) => character_type = "Player",
+                None => {},
+            };
+
+            if keys.just_pressed(KeyCode::Q) {
+                info!("{} health from {:?} to {}", character_type, health, health.current-10.);
+                health.current -= 10.;
+            }
+        }
     }
 }
