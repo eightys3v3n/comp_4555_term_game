@@ -65,6 +65,13 @@ impl Tilemap {
         return (10, 10);
     }
 
+    pub fn screen_pos_from_world_pos(&self, x: f32, y: f32, tile_size: f32) -> (f32, f32) {
+        return (
+            x as f32 * tile_size,
+            y as f32 * tile_size,
+        );
+    }
+
     pub fn get_tile(&self, x: i64, y: i64) -> Result<&Tile, TilemapError> {
         if x >= self.width as i64 {
             // return Err(format!("Specified X is greater than tilemap width: {}>{}", x, self.width));
