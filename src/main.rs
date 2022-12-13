@@ -27,6 +27,7 @@ use system::{
     game_over_inputs::handle_game_over_inputs,
     character_killer::character_killer,
     enemy_spawner::enemy_spawner,
+    round_manager::transition_rounds,
 };
 use enums::{
     AppState
@@ -116,6 +117,7 @@ fn main() {
                 .with_system(character_killer)
                 .with_system(enemy_spawner)
                 // .with_system(handle_playing_inputs)
+                .with_system(transition_rounds)
         )
         .add_system(handle_game_over_inputs)
         .add_system(handle_playing_inputs)
