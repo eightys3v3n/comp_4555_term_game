@@ -51,6 +51,8 @@ fn main() {
         .init_resource::<PlayerMovedFlag>()
         .add_state(AppState::MainMenu)
         .add_event::<event::SpawnEnemyEvent>()
+        .add_event::<event::RoundEndEvent>()
+        .add_event::<event::RoundStartEvent>()
         .add_startup_system(setup)
         // .add_state(AppState::MainMenu)
         .add_system_set(
