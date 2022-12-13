@@ -7,3 +7,4 @@ pub mod playing_inputs;
 pub mod main_menu_inputs;
 pub mod game_over_inputs;
 pub mod character_killer;
+pub mod enemy_spawner;

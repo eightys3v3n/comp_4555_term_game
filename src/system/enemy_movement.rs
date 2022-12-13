@@ -23,7 +23,7 @@ pub fn enemy_movement(
                         enemy_transform.rotation = Quat::from_rotation_z(displ_vel.direction.to_radians());
                         enemy_velocity.direction = displ_vel.direction;
                     }
-                    Err(e) => warn!("Couldn't use the player's position to direct enemy movements: {}", e)
+                    Err(e) => warn!("Couldn't use the player's position to direct enemy movements because there is no player? {}", e)
                 }
 
             }

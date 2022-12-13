@@ -4,6 +4,7 @@ mod resource;
 mod enums;
 mod state;
 mod ui;
+mod event;
 
 use log::{ warn };
 use bevy::{
@@ -24,6 +25,7 @@ use system::{
     main_menu_inputs::handle_main_menu_inputs,
     game_over_inputs::handle_game_over_inputs,
     character_killer::character_killer,
+    enemy_spawner::enemy_spawner,
 };
 use enums::{
     AppState
@@ -48,6 +50,7 @@ fn main() {
         .init_resource::<Tilemap>()
         .init_resource::<PlayerMovedFlag>()
         .add_state(AppState::MainMenu)
+        .add_event::<event::SpawnEnemyEvent>()
         .add_startup_system(setup)
         // .add_state(AppState::MainMenu)
         .add_system_set(
@@ -107,6 +110,7 @@ fn main() {
                 .with_system(apply_velocity)
                 .with_system(debug_key)
                 .with_system(character_killer)
+                .with_system(enemy_spawner)
                 // .with_system(handle_playing_inputs)
         )
         .add_system(handle_game_over_inputs)
@@ -148,25 +152,27 @@ pub fn setup(
 
 pub fn debug_key(
     keys: Res<Input<KeyCode>>,
-    mut query: Query<(&mut Health, Option<&Enemy>, Option<&Player>), Or<(With<Enemy>, With<Player>)>>,
+    // mut query: Query<(&mut Health, Option<&Enemy>, Option<&Player>), Or<(With<Enemy>, With<Player>)>>,
+    mut spawn_events: EventWriter<event::SpawnEnemyEvent>,
+    config: Res<Config>,
 ) {
-    if ! query.is_empty() {
-        for (mut health, enemy, player) in query.iter_mut() {
-            let mut character_type = "None";
-
-            match enemy {
-                Some(is_enemy) => character_type = "Enemy",
-                None => {},
-            };
-            match player {
-                Some(is_player) => character_type = "Player",
-                None => {},
-            };
-
-            if keys.just_pressed(KeyCode::Q) {
-                info!("{} health from {:?} to {}", character_type, health, health.current-10.);
-                health.current -= 10.;
-            }
-        }
+    if keys.just_pressed(KeyCode::Q) {
+        spawn_events.send(event::SpawnEnemyEvent{ enemy_type: enums::EnemyType::Basic });
     }
+
+    // if ! query.is_empty() {
+    //     for (mut health, enemy, player) in query.iter_mut() {
+    //         let mut character_type = "None";
+
+    //         match enemy {
+    //             Some(is_enemy) => character_type = "Enemy",
+    //             None => {},
+    //         };
+    //         match player {
+    //             Some(is_player) => character_type = "Player",
+    //             None => {},
+    //         };
+
+    //     }
+    // }
 }
