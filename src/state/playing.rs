@@ -38,25 +38,6 @@ pub fn setup(
         },
         Player,
     ));
-
-    commands.spawn((
-        Character {
-            sprite: SpriteBundle {
-                texture: asset_server.load(&config.enemy.basic.image_path),
-                transform: Transform::from_xyz(0.0, 0.0, config.enemy.basic.z_height),
-                sprite: Sprite {
-                    custom_size: Some(Vec2::new(config.enemy.basic.width, config.enemy.basic.height)),
-                    ..default()
-                },
-                ..default()
-            },
-            velocity: Velocity::new(10.0, 0.0),
-            health: Health::new(config.player.default_health),
-        },
-        Enemy {
-            move_behaviour: config.enemy.basic.move_behaviour.clone(),
-        },
-    ));
 }
 
 pub fn load_map(

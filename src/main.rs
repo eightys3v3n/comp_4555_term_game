@@ -27,6 +27,7 @@ use system::{
     game_over_inputs::handle_game_over_inputs,
     character_killer::character_killer,
     enemy_spawner::enemy_spawner,
+    enemy_spawner::enemy_caller,
     round_manager::transition_rounds,
 };
 use enums::{
@@ -107,7 +108,7 @@ fn main() {
                 .with_system(debug_key)
                 .with_system(character_killer)
                 .with_system(enemy_spawner)
-                // .with_system(handle_playing_inputs)
+                .with_system(enemy_caller)
                 .with_system(transition_rounds)
         )
         .add_system(handle_game_over_inputs)
@@ -152,10 +153,16 @@ pub fn debug_key(
     // mut query: Query<(&mut Health, Option<&Enemy>, Option<&Player>), Or<(With<Enemy>, With<Player>)>>,
     mut spawn_events: EventWriter<event::SpawnEnemyEvent>,
     config: Res<Config>,
+    mut round: ResMut<RoundInfo>,
 ) {
     if keys.just_pressed(KeyCode::Q) {
-        spawn_events.send(event::SpawnEnemyEvent{ enemy_type: enums::EnemyType::Basic });
+        spawn_events.send(event::SpawnEnemyEvent{
+            enemy_type: enums::EnemyType::Basic, location: None
+        });
+    } else if keys.just_pressed(KeyCode::Plus) {
+        info!("Increasing round # to {}", round.number);
     }
+
 
     // if ! query.is_empty() {
     //     for (mut health, enemy, player) in query.iter_mut() {
