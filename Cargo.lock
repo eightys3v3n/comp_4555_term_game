@@ -1037,7 +1037,7 @@ dependencies = [
 
 [[package]]
 name = "comp_4555_term_game"
-version = "0.6.0"
+version = "0.6.1"
 dependencies = [
  "approx",
  "bevy",
