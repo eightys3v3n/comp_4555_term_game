@@ -16,6 +16,7 @@ Config(
 
     enemy: (
         basic: (
+            type: Basic,
             move_speed: 40.0,
             move_behaviour: PointedToPlayer,
             image_path: "skeleton-idle_0.png",

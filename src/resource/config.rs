@@ -51,8 +51,9 @@ pub struct EnemyTypesConfig {
     pub basic: EnemyConfig,
 }
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct EnemyConfig {
+    pub r#type: EnemyType,
     pub image_path: String,
     pub move_speed: f32,
     pub width: f32,
@@ -105,7 +106,7 @@ config:
     default_z_height:{}
     tile_size:{}
   enemy:
-    basic:
+    {:?}:
       move_speed: {}
       move_behaviour: {:?}
   performance:
@@ -143,6 +144,7 @@ config:
             self.map.grass_texture_path,
             self.map.default_z_height,
             self.map.tile_size,
+            self.enemy.basic.r#type,
             self.enemy.basic.move_speed,
             self.enemy.basic.move_behaviour,
             self.performance.enemy_movement_frequency,

@@ -1,7 +1,12 @@
 use serde::{Deserialize, Serialize};
 
 
-#[derive(Debug, Clone, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
+pub enum EnemyType {
+    Basic,
+}
+
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub enum MoveBehaviour {
     PointedToPlayer,
 }
