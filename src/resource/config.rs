@@ -16,6 +16,7 @@ pub struct Config {
     pub performance: PerformanceConfig,
     pub menu: MenuConfig,
     pub window: WindowConfig,
+    pub round: RoundConfig,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -80,6 +81,12 @@ pub struct ButtonConfig {
     pub id: ButtonID,
 }
 
+#[derive(Debug, Deserialize, Serialize)]
+pub struct RoundConfig {
+    pub basic_multiplier: f32,
+    pub start_delay: u64,
+}
+
 
 
 impl Default for Config {
@@ -111,6 +118,9 @@ config:
       move_behaviour: {:?}
   performance:
     enemy_movement_frequency: {}
+  round:
+    basic_multiplier: {}
+    round_delay: {}
   menu:
     button_font: {}
     new_game:
@@ -148,6 +158,8 @@ config:
             self.enemy.basic.move_speed,
             self.enemy.basic.move_behaviour,
             self.performance.enemy_movement_frequency,
+            self.round.basic_multiplier,
+            self.round.start_delay,
             self.menu.button_font,
             self.menu.new_game.id,
             self.menu.new_game.text,

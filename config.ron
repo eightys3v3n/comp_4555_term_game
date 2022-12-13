@@ -62,4 +62,9 @@ Config(
         width: 800,
         height: 500,
     ),
+
+    round: (
+        basic_multiplier: 2,
+        start_delay: 10,
+    ),
 )
