@@ -9,11 +9,11 @@ use super::super::resource::{
 pub fn set_player_movements(
     keys: Res<Input<KeyCode>>,
     config: Res<Config>,
-    mut query: Query<&mut Velocity, With<Player>>,
+    mut query: Query<(&mut Velocity, &mut Transform), With<Player>>,
 ) {
     if ! query.is_empty() {
         match query.get_single_mut() {
-            Ok(mut velocity) => {
+            Ok((mut velocity, mut transform)) => {
                 let (mut vel_x, mut vel_y) = velocity.to_xy();
 
                 if keys.just_pressed(KeyCode::W) {
@@ -52,9 +52,22 @@ pub fn set_player_movements(
                     vel_x -= config.player.move_speed;
                 }
 
+                // Round to certain number of decimal places
+                vel_x = (vel_x * 10000.0).round() / 10000.0;
+                vel_y = (vel_y * 10000.0).round() / 10000.0;
+
+                let mut rotation_angle;
+                if vel_x != 0. || vel_y != 0. {
+                    rotation_angle = vel_y.atan2(vel_x);
+                } else {
+                    rotation_angle = 0.;
+                }
+
+                transform.rotation = Quat::from_rotation_z(rotation_angle);
                 velocity.from_xy(vel_x, vel_y);
             },
             Err(err) => warn!("Error finding player for movement: {}", err)
         };
     }
 }
+
