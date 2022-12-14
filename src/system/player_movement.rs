@@ -63,7 +63,9 @@ pub fn set_player_movements(
                     rotation_angle = 0.;
                 }
 
-                transform.rotation = Quat::from_rotation_z(rotation_angle);
+                if vel_x != 0. || vel_y != 0. {
+                    transform.rotation = Quat::from_rotation_z(rotation_angle);
+                }
                 velocity.from_xy(vel_x, vel_y);
             },
             Err(err) => warn!("Error finding player for movement: {}", err)
