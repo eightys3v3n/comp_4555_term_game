@@ -6,11 +6,19 @@ use bevy::{
     },
 };
 use log::warn;
-use super::super::enums::AppState;
+use super::super::{
+    enums::AppState,
+    event::*,
+    resource::{
+        weapons::Weapons,
+    },
+};
 
 pub fn handle_playing_inputs(
     mut state: ResMut<State<AppState>>,
     mut keyboard_events: EventReader<KeyboardInput>,
+    mut fire_bullet_events: EventWriter<FireBulletEvent>,
+    mut current_weapon: ResMut<Weapons>,
 ) {
     if state.current() != &AppState::Playing {
         keyboard_events.clear();
@@ -32,6 +40,11 @@ pub fn handle_playing_inputs(
                                 Ok(_) => info!("Switched into Game Over state"),
                                 Err(e) => warn!("Failed to switch into the Game Over state on ` pressed. {}", e),
                             }
+                        } else if key_code == KeyCode::Space {
+                            info!("Firing a bullet event!");
+                            fire_bullet_events.send(FireBulletEvent{
+                                bullet_type: current_weapon.bullet_type,
+                            });
                         }
                     }
                     None => {}
