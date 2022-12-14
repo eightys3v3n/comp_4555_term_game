@@ -7,6 +7,16 @@ pub enum EnemyType {
 }
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
+pub enum BulletType {
+    Basic,
+}
+
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
+pub enum WeaponType {
+    Pistol,
+}
+
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub enum MoveBehaviour {
     PointedToPlayer,
 }
