@@ -17,6 +17,7 @@ use resource::{
     tilemap::Tilemap,
     player_moved_flag::PlayerMovedFlag,
     round::RoundInfo,
+    weapons::Weapons,
 };
 use system::{
     enemy_movement::enemy_movement,
@@ -53,6 +54,7 @@ fn main() {
         .init_resource::<Tilemap>()
         .init_resource::<PlayerMovedFlag>()
         .init_resource::<RoundInfo>()
+        .init_resource::<Weapons>()
         .add_state(AppState::MainMenu)
         .add_event::<event::SpawnEnemyEvent>()
         .add_event::<event::RoundEndEvent>()
