@@ -57,6 +57,7 @@ fn main() {
         .add_event::<event::SpawnEnemyEvent>()
         .add_event::<event::RoundEndEvent>()
         .add_event::<event::RoundStartEvent>()
+        .add_event::<event::FireBulletEvent>()
         .add_startup_system(setup)
         .add_system_set(
             SystemSet::on_enter(AppState::MainMenu)

@@ -1,11 +1,15 @@
 use super::{
     resource::config::EnemyConfig,
-    enums::EnemyType,
+    enums::*,
 };
 use bevy::{
     prelude::*,
 };
 
+
+pub struct FireBulletEvent {
+    pub bullet_type: BulletType,
+}
 
 pub struct SpawnEnemyEvent {
     pub enemy_type: EnemyType,
