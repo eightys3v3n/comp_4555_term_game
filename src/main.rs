@@ -150,33 +150,11 @@ pub fn setup(
 
 pub fn debug_key(
     keys: Res<Input<KeyCode>>,
-    // mut query: Query<(&mut Health, Option<&Enemy>, Option<&Player>), Or<(With<Enemy>, With<Player>)>>,
     mut spawn_events: EventWriter<event::SpawnEnemyEvent>,
     config: Res<Config>,
     mut round: ResMut<RoundInfo>,
 ) {
     if keys.just_pressed(KeyCode::Q) {
-        spawn_events.send(event::SpawnEnemyEvent{
-            enemy_type: enums::EnemyType::Basic, location: None
-        });
-    } else if keys.just_pressed(KeyCode::Plus) {
-        info!("Increasing round # to {}", round.number);
+
     }
-
-
-    // if ! query.is_empty() {
-    //     for (mut health, enemy, player) in query.iter_mut() {
-    //         let mut character_type = "None";
-
-    //         match enemy {
-    //             Some(is_enemy) => character_type = "Enemy",
-    //             None => {},
-    //         };
-    //         match player {
-    //             Some(is_player) => character_type = "Player",
-    //             None => {},
-    //         };
-
-    //     }
-    // }
 }

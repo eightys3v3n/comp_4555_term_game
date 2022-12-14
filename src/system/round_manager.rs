@@ -29,8 +29,6 @@ pub fn transition_rounds(
                 info!("No more enemies left, ending round {}", round.number);
                 round.end_time = Some(SystemTime::now());
                 round_end_events.send(RoundEndEvent{round_number: round.number});
-            } else {
-                info!("Still waiting for player to kill {} enemies.", round.enemy_counts.Basic + enemies.iter().len() as u64);
             }
         }
         Some(end_time) => {
@@ -39,17 +37,11 @@ pub fn transition_rounds(
                 round.end_time = None;
                 round.start_time = Some(SystemTime::now());
 
-
                 info!("Starting round {}", round.number);
 
                 setup_round(&mut round);
 
                 round_start_events.send(RoundStartEvent{round_number: round.number});
-            } else {
-                info!("Waiting for {} more seconds before starting round {}",
-                      (Duration::from_secs(config.round.start_delay) - end_time.elapsed().unwrap()).as_secs(),
-                      round.number + 1,
-                );
             }
         }
     }
