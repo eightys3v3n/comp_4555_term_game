@@ -54,6 +54,7 @@ pub fn do_collisions(
             // ignore player-bullet collisions because bullets fire from inside the player.
             return;
 
+
         } else if event.from_entity_type == EntityType::Bullet && event.to_entity_type == EntityType::Enemy {
             let mut enemy_health = match health_query.get_mut(event.to_entity_id) {
                 Ok(enemy_health) => enemy_health,
@@ -75,7 +76,26 @@ pub fn do_collisions(
             info!("Hit an enemy for {} damage! {} health left", bullet_info.damage, enemy_health.current);
             commands.entity(event.from_entity_id).despawn_recursive();
         } else if event.from_entity_type == EntityType::Enemy && event.to_entity_type == EntityType::Bullet {
-            info!("A bullet hit an enemy");
+            let mut enemy_health = match health_query.get_mut(event.from_entity_id) {
+                Ok(enemy_health) => enemy_health,
+                Err(e) => {
+                    warn!("Found no player health for this player entity? {}", e);
+                    continue
+                }
+            };
+            let bullet_info = match bullet_info_query.get(event.to_entity_id) {
+                Ok(bullet_info) => bullet_info,
+                Err(e) => {
+                    warn!("Found no bullet info for this bullet entity? {}", e);
+                    continue
+                }
+            };
+
+            enemy_health.current -= bullet_info.damage;
+
+            info!("Hit an enemy for {} damage! {} health left", bullet_info.damage, enemy_health.current);
+            commands.entity(event.to_entity_id).despawn_recursive();
+
 
         } else if event.from_entity_type == EntityType::Player && event.to_entity_type == EntityType::Enemy {
             let mut player_health = match health_query.get_mut(event.from_entity_id) {
@@ -155,6 +175,7 @@ pub fn do_collisions(
             player_health.current -= damage;
 
             info!("Player ran into a {:?} Enemy which does {} damage.", enemy_info.r#type, damage);
+
 
         } else if event.from_entity_type == EntityType::Enemy && event.to_entity_type == EntityType::Enemy {
             // info!("Enemy ran into an enemy");
