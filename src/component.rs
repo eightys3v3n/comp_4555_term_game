@@ -8,6 +8,12 @@ pub mod velocity;
 pub use velocity::Velocity;
 
 #[derive(Component, Debug)]
+pub struct CollideInfo {
+    pub radius: f32,
+    pub entity_type: EntityType,
+}
+
+#[derive(Component, Debug)]
 pub struct ButtonInfo {
     pub id: ButtonID,
 }

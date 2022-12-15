@@ -2,6 +2,13 @@ use serde::{Deserialize, Serialize};
 
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
+pub enum EntityType {
+    Player,
+    Enemy,
+    Bullet,
+}
+
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub enum EnemyType {
     Basic,
 }
