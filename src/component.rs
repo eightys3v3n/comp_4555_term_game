@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 use super::enums::*;
 use std::fmt;
+use std::time::{ Duration, SystemTime };
 
 
 pub mod velocity;
@@ -23,6 +24,8 @@ pub struct BulletInfo {
 #[derive(Component, Debug)]
 pub struct Enemy {
     pub move_behaviour: MoveBehaviour,
+    pub r#type: EnemyType,
+    pub last_hit_time: Option<SystemTime>,
 }
 
 impl fmt::Display for Enemy {

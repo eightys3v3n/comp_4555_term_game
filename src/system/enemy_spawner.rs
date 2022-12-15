@@ -16,7 +16,7 @@ use super::super::{
     },
 };
 use rand::Rng;
-use std::time::Duration;
+use std::time::{ Duration, SystemTime };
 
 
 pub fn enemy_spawner(
@@ -55,9 +55,15 @@ pub fn enemy_spawner(
                 },
                 velocity: Velocity::new(10.0, 0.0),
                 health: Health::new(config.player.default_health),
+                collide_info: CollideInfo {
+                    radius: enemy_config.width.max(enemy_config.height) / 2.,
+                    entity_type: EntityType::Enemy,
+                },
             },
             Enemy {
                 move_behaviour: enemy_config.move_behaviour.clone(),
+                r#type: event.enemy_type,
+                last_hit_time: None::<SystemTime>,
             },
         ));
     }
