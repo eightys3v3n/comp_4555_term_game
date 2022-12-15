@@ -65,21 +65,25 @@ pub fn enemy_spawner(
 
 fn random_outside_map(x: usize, y: usize, centre_x: u64, centre_y: u64) -> (f32, f32) {
     let mut rng = rand::thread_rng();
-    let left_right: f32 = rng.gen::<f32>();
-    let up_down: f32 = rng.gen::<f32>();
-
+    let side: f32 = rng.gen::<f32>();
+    let distance: f32 = rng.gen::<f32>();
     let enemy_x: f32;
-    if left_right < 0.5 {
-        enemy_x = -(x as f32 - centre_x as f32);
-    } else {
-        enemy_x = x as f32 - centre_x as f32;
-    }
-
     let enemy_y: f32;
-    if up_down < 0.5 {
-        enemy_y = -(y as f32 - centre_y as f32);
-    } else {
-        enemy_y = y as f32 - centre_y as f32;
+    let right_map_x = x as f32 - centre_x as f32;
+    let above_map_y = y as f32 - centre_y as f32;
+
+    if side < 0.25 { // top edge of map
+        enemy_y = above_map_y;
+        enemy_x = (distance - 0.5) * right_map_x;
+    } else if side < 0.5 { // right edge of the map
+        enemy_y = (distance - 0.5) * above_map_y;
+        enemy_x = right_map_x;
+    } else if side < 0.75 { // bottom edge of the map
+        enemy_y = -above_map_y;
+        enemy_x = (distance - 0.5) * right_map_x;
+    } else { // left edge of the map
+        enemy_y = (distance - 0.5) * above_map_y;
+        enemy_x = -right_map_x;
     }
 
     return (enemy_x, enemy_y);
