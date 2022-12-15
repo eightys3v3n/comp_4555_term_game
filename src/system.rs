@@ -10,3 +10,4 @@ pub mod character_killer;
 pub mod enemy_spawner;
 pub mod round_manager;
 pub mod bullet;
+pub mod collisions;

@@ -9,6 +9,14 @@ use bevy::{
 
 pub struct FireBulletEvent {
     pub bullet_type: BulletType,
+    pub start_transform: Transform,
+}
+
+pub struct CollideEvent {
+    pub from_entity_type: EntityType,
+    pub from_entity_id: Entity,
+    pub to_entity_id: Entity,
+    pub to_entity_type: EntityType,
 }
 
 pub struct SpawnEnemyEvent {

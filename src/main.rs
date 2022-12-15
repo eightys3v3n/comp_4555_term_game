@@ -31,6 +31,7 @@ use system::{
     enemy_spawner::enemy_caller,
     round_manager::transition_rounds,
     bullet::*,
+    collisions::*,
 };
 use enums::{
     AppState
@@ -61,6 +62,7 @@ fn main() {
         .add_event::<event::RoundEndEvent>()
         .add_event::<event::RoundStartEvent>()
         .add_event::<event::FireBulletEvent>()
+        .add_event::<event::CollideEvent>()
         .add_startup_system(setup)
         .add_system_set(
             SystemSet::on_enter(AppState::MainMenu)
@@ -115,6 +117,7 @@ fn main() {
                 .with_system(enemy_caller)
                 .with_system(transition_rounds)
                 .with_system(fire_bullet)
+                .with_system(detect_collisions)
         )
         .add_system(handle_game_over_inputs)
         .add_system(handle_playing_inputs)
