@@ -34,6 +34,7 @@ pub fn detect_collisions(
 }
 
 pub fn do_collisions(
+    mut commands: Commands,
     mut collision_events: EventReader<CollideEvent>,
     bullet_info_query: Query<&BulletInfo>,
     mut health_query: Query<&mut Health>,
@@ -54,7 +55,25 @@ pub fn do_collisions(
             return;
 
         } else if event.from_entity_type == EntityType::Bullet && event.to_entity_type == EntityType::Enemy {
-            info!("A bullet hit an enemy");
+            let mut enemy_health = match health_query.get_mut(event.to_entity_id) {
+                Ok(enemy_health) => enemy_health,
+                Err(e) => {
+                    warn!("Found no player health for this player entity? {}", e);
+                    continue
+                }
+            };
+            let bullet_info = match bullet_info_query.get(event.from_entity_id) {
+                Ok(bullet_info) => bullet_info,
+                Err(e) => {
+                    warn!("Found no bullet info for this bullet entity? {}", e);
+                    continue
+                }
+            };
+
+            enemy_health.current -= bullet_info.damage;
+
+            info!("Hit an enemy for {} damage! {} health left", bullet_info.damage, enemy_health.current);
+            commands.entity(event.from_entity_id).despawn_recursive();
         } else if event.from_entity_type == EntityType::Enemy && event.to_entity_type == EntityType::Bullet {
             info!("A bullet hit an enemy");
 
