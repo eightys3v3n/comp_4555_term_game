@@ -22,7 +22,6 @@ pub struct ButtonInfo {
 pub struct BulletInfo {
     pub r#type: BulletType,
     pub range: f32,
-    pub size: f32,
     pub damage: f32,
     pub start_transform: Transform,
 }

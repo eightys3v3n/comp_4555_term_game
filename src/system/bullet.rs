@@ -50,7 +50,6 @@ pub fn fire_bullet(
                     r#type: event.bullet_type,
                     range: bullet_config.range,
                     start_transform: event.start_transform,
-                    size: bullet_config.size,
                     damage: bullet_config.damage,
                 },
                 collide_info: CollideInfo {
