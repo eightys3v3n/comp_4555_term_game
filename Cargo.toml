@@ -1,6 +1,6 @@
 [package]
 name = "comp_4555_term_game"
-version = "0.6.6"
+version = "0.6.7"
 edition = "2021"
 description = "A Box-head-zombie-wars-like game"
 license = "Unspecified"
