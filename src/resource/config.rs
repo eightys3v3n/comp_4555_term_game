@@ -79,6 +79,8 @@ pub struct EnemyConfig {
     pub height: f32,
     pub move_behaviour: MoveBehaviour,
     pub z_height: f32,
+    pub damage: f32,
+    pub hit_cooldown: u64,
 }
 
 #[derive(Debug, Deserialize, Serialize)]

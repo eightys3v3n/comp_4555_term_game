@@ -23,6 +23,8 @@ Config(
             z_height: 9.0,
             width: 50.0,
             height: 50.0,
+            damage: 50.0,
+            hit_cooldown: 2000,
         ),
     ),
 
