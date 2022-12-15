@@ -25,6 +25,7 @@ Config(
             height: 50.0,
             damage: 50.0,
             hit_cooldown: 2000,
+            health: 100.0,
         ),
     ),
 

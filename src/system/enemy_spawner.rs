@@ -54,7 +54,7 @@ pub fn enemy_spawner(
                     ..default()
                 },
                 velocity: Velocity::new(10.0, 0.0),
-                health: Health::new(config.player.default_health),
+                health: Health::new(enemy_config.health),
                 collide_info: CollideInfo {
                     radius: enemy_config.width.max(enemy_config.height) / 2.,
                     entity_type: EntityType::Enemy,
