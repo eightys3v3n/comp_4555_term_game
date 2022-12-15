@@ -76,7 +76,7 @@ Config(
             width: 5.5,
             height: 13.,
             speed: 200.0,
-            size: 30.0,
+            size: 5.0,
             damage: 50.0,
             range: 200.0,
         ),
