@@ -118,6 +118,7 @@ fn main() {
                 .with_system(transition_rounds)
                 .with_system(fire_bullet)
                 .with_system(detect_collisions)
+                .with_system(do_collisions)
         )
         .add_system(handle_game_over_inputs)
         .add_system(handle_playing_inputs)
