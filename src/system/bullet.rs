@@ -53,6 +53,10 @@ pub fn fire_bullet(
                     size: bullet_config.size,
                     damage: bullet_config.damage,
                 },
+                collide_info: CollideInfo {
+                    radius: bullet_config.size,
+                    entity_type: EntityType::Bullet,
+                },
             },
         );
 

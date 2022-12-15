@@ -97,6 +97,7 @@ pub struct Character {
 
     pub velocity: Velocity,
     pub health: Health,
+    pub collide_info: CollideInfo,
 }
 
 #[derive(Bundle)]
@@ -106,4 +107,5 @@ pub struct BulletBundle {
 
     pub velocity: Velocity,
     pub bullet_info: BulletInfo,
+    pub collide_info: CollideInfo,
 }
