@@ -17,6 +17,24 @@ pub struct Config {
     pub menu: MenuConfig,
     pub window: WindowConfig,
     pub round: RoundConfig,
+    pub bullet: BulletsConfig,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct BulletsConfig {
+    pub basic: BulletConfig,
+    pub z_height: f32,
+}
+
+#[derive(Clone, Debug, Deserialize, Serialize)]
+pub struct BulletConfig {
+    pub image_path: String,
+    pub width: f32,
+    pub height: f32,
+    pub speed: f32,
+    pub size: f32,
+    pub damage: f32,
+    pub range: f32,
 }
 
 #[derive(Debug, Deserialize, Serialize)]

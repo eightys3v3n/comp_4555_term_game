@@ -67,4 +67,16 @@ Config(
         basic_multiplier: 2,
         start_delay: 10,
     ),
+    bullet: (
+        z_height: 30.0,
+        basic: (
+            image_path: "basic_bullet.png", // 11x26px
+            width: 5.5,
+            height: 13.,
+            speed: 200.0,
+            size: 30.0,
+            damage: 50.0,
+            range: 200.0,
+        ),
+    ),
 )

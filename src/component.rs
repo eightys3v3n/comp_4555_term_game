@@ -12,6 +12,15 @@ pub struct ButtonInfo {
 }
 
 #[derive(Component, Debug)]
+pub struct BulletInfo {
+    pub r#type: BulletType,
+    pub range: f32,
+    pub size: f32,
+    pub damage: f32,
+    pub start_transform: Transform,
+}
+
+#[derive(Component, Debug)]
 pub struct Enemy {
     pub move_behaviour: MoveBehaviour,
 }
@@ -79,4 +88,13 @@ pub struct Character {
 
     pub velocity: Velocity,
     pub health: Health,
+}
+
+#[derive(Bundle)]
+pub struct BulletBundle {
+    #[bundle]
+    pub sprite: SpriteBundle,
+
+    pub velocity: Velocity,
+    pub bullet_info: BulletInfo,
 }
