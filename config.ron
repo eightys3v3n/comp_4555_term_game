@@ -84,4 +84,7 @@ Config(
             range: 200.0,
         ),
     ),
+    sound: (
+        shoot_basic_path: "bullet.ogg",
+    ),
 )

@@ -15,6 +15,7 @@ pub fn fire_bullet(
     mut fire_bullet_events: EventReader<FireBulletEvent>,
     asset_server: Res<AssetServer>,
     config: Res<Config>,
+    audio: Res<Audio>
 ) {
     for event in fire_bullet_events.iter() {
         let bullet_config: &BulletConfig;
@@ -59,6 +60,8 @@ pub fn fire_bullet(
                 },
             },
         );
+
+        audio.play(asset_server.load(&config.sound.shoot_basic_path));
 
         info!("Firing bullet {:?} with velocity {:?} and direction {:?}", event.bullet_type, bullet_velocity, event.start_transform.rotation.to_scaled_axis().z.to_degrees());
     }

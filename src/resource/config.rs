@@ -18,6 +18,12 @@ pub struct Config {
     pub window: WindowConfig,
     pub round: RoundConfig,
     pub bullet: BulletsConfig,
+    pub sound: SoundConfig,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct SoundConfig {
+    pub shoot_basic_path: String,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
