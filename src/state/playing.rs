@@ -44,14 +44,17 @@ pub fn setup(
         Player,
     ));
 
-    commands.spawn(NodeBundle {
-        style: Style {
-            size: Size::new(Val::Percent(100.), Val::Percent(100.)),
-            justify_content: JustifyContent::SpaceBetween,
+    commands.spawn((
+        NodeBundle {
+            style: Style {
+                size: Size::new(Val::Percent(100.), Val::Percent(100.)),
+                justify_content: JustifyContent::SpaceBetween,
+                ..default()
+            },
             ..default()
         },
-        ..default()
-    })
+        Playing,
+    ))
     .with_children(|parent| {
         parent.spawn(NodeBundle {
             style: Style {

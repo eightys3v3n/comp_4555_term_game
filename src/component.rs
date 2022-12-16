@@ -89,6 +89,9 @@ impl fmt::Display for Player {
 }
 
 #[derive(Component, Debug)]
+pub struct Playing;
+
+#[derive(Component, Debug)]
 pub struct MainMenu;
 
 #[derive(Component, Debug)]

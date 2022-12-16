@@ -125,6 +125,10 @@ fn main() {
                 .with_system(do_collisions)
                 .with_system(hud::updater)
         )
+        .add_system_set(
+            SystemSet::on_exit(AppState::Playing)
+                .with_system(despawn_all_recursive::<Playing>)
+        )
         .add_system(handle_game_over_inputs)
         .add_system(handle_playing_inputs)
         .add_system(handle_main_menu_inputs)
