@@ -85,7 +85,7 @@ pub struct EnemyConfig {
     pub move_speed: f32,
     pub width: f32,
     pub height: f32,
-    pub move_behaviour: MoveBehaviour,
+    pub move_behaviour: Vec<MoveBehaviour>,
     pub z_height: f32,
     pub damage: f32,
     pub hit_cooldown: u64,

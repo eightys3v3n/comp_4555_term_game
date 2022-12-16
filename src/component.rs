@@ -29,7 +29,7 @@ pub struct BulletInfo {
 
 #[derive(Component, Debug)]
 pub struct Enemy {
-    pub move_behaviour: MoveBehaviour,
+    pub move_behaviour: Vec<MoveBehaviour>,
     pub r#type: EnemyType,
     pub last_hit_time: Option<SystemTime>,
 }

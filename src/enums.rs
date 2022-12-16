@@ -26,6 +26,7 @@ pub enum WeaponType {
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub enum MoveBehaviour {
     PointedToPlayer,
+    AvoidEnemies,
 }
 
 #[derive(Debug, Clone, Eq, PartialEq, Serialize, Deserialize, Hash)]

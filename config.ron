@@ -18,7 +18,7 @@ Config(
         basic: (
             type: Basic,
             move_speed: 30.0,
-            move_behaviour: PointedToPlayer,
+            move_behaviour: [AvoidEnemies, PointedToPlayer],
             image_path: "skeleton-idle_0.png",
             z_height: 9.0,
             width: 50.0,
