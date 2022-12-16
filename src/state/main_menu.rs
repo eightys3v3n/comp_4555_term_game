@@ -34,7 +34,7 @@ pub fn setup(
                         size: Size::new(Val::Percent(60.0), Val::Percent(100.0)),
                         ..default()
                     },
-                    background_color: Color::rgb(1., 0., 0.).into(),
+                    // background_color: Color::rgb(1., 0., 0.).into(),
                     ..default()
                 },
             ));
@@ -59,7 +59,7 @@ pub fn setup(
                         size: Size::new(Val::Percent(60.0), Val::Percent(100.0)),
                         ..default()
                     },
-                    background_color: Color::rgb(1., 0., 0.).into(),
+                    // background_color: Color::rgb(1., 0., 0.).into(),
                     ..default()
                 },
             ));
