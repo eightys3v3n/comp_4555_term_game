@@ -36,4 +36,35 @@ pub fn enemy_movement(
             }
         }
     }
+
+
+/// Given a value between from_low and from_high, return the equivalent value if it were between to_low and to_high.
+fn remap_range(val: f32, from_low: f32, from_high: f32, to_low: f32, to_high: f32) -> f32 {
+    assert!(from_low < from_high);
+    assert!(to_low < to_high);
+
+    if (val * 10000.).round()/10000. == (from_low * 10000.).round()/10000. { return to_low; }
+    if val < from_low { return to_low; }
+    if val > from_high { return to_high; }
+
+    let mut ret: f32;
+
+    ret = val - from_low;
+    ret = ret / (from_high - from_low);
+    ret = ret * (to_high - to_low);
+    ret += to_low;
+    return ret;
+}
+
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn remap_range() {
+        assert_eq!(10., super::remap_range(1., 1., 10., 10., 100.));
+        assert_eq!(50., super::remap_range(5., 1., 10., 10., 100.));
+        assert_eq!(0.5, super::remap_range(5., 0., 10., 0., 1.));
+        assert_eq!(100., super::remap_range(10., 1., 10., 10., 100.));
+        assert_eq!(50., super::remap_range(1., 0., 2., 0., 100.));
+    }
 }
