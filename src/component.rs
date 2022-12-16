@@ -24,6 +24,7 @@ pub struct BulletInfo {
     pub range: f32,
     pub damage: f32,
     pub start_transform: Transform,
+    pub hit_something: bool,
 }
 
 #[derive(Component, Debug)]
@@ -69,6 +70,15 @@ impl Health {
 
 
 // Tagging
+#[derive(Component, Debug)]
+pub struct RoundCounter;
+
+#[derive(Component, Debug)]
+pub struct EnemiesCounter;
+
+#[derive(Component, Debug)]
+pub struct HUD;
+
 #[derive(Component, Debug)]
 pub struct Player;
 

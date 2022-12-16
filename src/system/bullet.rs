@@ -51,6 +51,7 @@ pub fn fire_bullet(
                     range: bullet_config.range,
                     start_transform: event.start_transform,
                     damage: bullet_config.damage,
+                    hit_something: false,
                 },
                 collide_info: CollideInfo {
                     radius: bullet_config.size,
@@ -60,5 +61,23 @@ pub fn fire_bullet(
         );
 
         info!("Firing bullet {:?} with velocity {:?} and direction {:?}", event.bullet_type, bullet_velocity, event.start_transform.rotation.to_scaled_axis().z.to_degrees());
+    }
+}
+
+pub fn despawner(
+    mut commands: Commands,
+    config: Res<Config>,
+    bullets_query: Query<(Entity, &BulletInfo, &Transform)>,
+){
+    for (entity, bullet_info, transform) in bullets_query.iter() {
+        if bullet_info.hit_something {
+            commands.entity(entity).despawn_recursive();
+            continue;
+        }
+
+        if transform.translation.distance(bullet_info.start_transform.translation) >= bullet_info.range {
+            commands.entity(entity).despawn_recursive();
+            continue;
+        }
     }
 }

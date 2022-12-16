@@ -36,7 +36,7 @@ pub fn detect_collisions(
 pub fn do_collisions(
     mut commands: Commands,
     mut collision_events: EventReader<CollideEvent>,
-    bullet_info_query: Query<&BulletInfo>,
+    mut bullet_info_query: Query<&mut BulletInfo>,
     mut health_query: Query<&mut Health>,
     mut enemy_query: Query<&mut Enemy>,
     config: Res<Config>,
@@ -63,7 +63,7 @@ pub fn do_collisions(
                     continue
                 }
             };
-            let bullet_info = match bullet_info_query.get(event.from_entity_id) {
+            let mut bullet_info = match bullet_info_query.get_mut(event.from_entity_id) {
                 Ok(bullet_info) => bullet_info,
                 Err(e) => {
                     warn!("Found no bullet info for this bullet entity? {}", e);
@@ -74,6 +74,7 @@ pub fn do_collisions(
             enemy_health.current -= bullet_info.damage;
 
             info!("Hit an enemy for {} damage! {} health left", bullet_info.damage, enemy_health.current);
+            bullet_info.hit_something = true;
             commands.entity(event.from_entity_id).despawn_recursive();
         } else if event.from_entity_type == EntityType::Enemy && event.to_entity_type == EntityType::Bullet {
             let mut enemy_health = match health_query.get_mut(event.from_entity_id) {
@@ -83,7 +84,7 @@ pub fn do_collisions(
                     continue
                 }
             };
-            let bullet_info = match bullet_info_query.get(event.to_entity_id) {
+            let mut bullet_info = match bullet_info_query.get_mut(event.to_entity_id) {
                 Ok(bullet_info) => bullet_info,
                 Err(e) => {
                     warn!("Found no bullet info for this bullet entity? {}", e);
@@ -94,6 +95,7 @@ pub fn do_collisions(
             enemy_health.current -= bullet_info.damage;
 
             info!("Hit an enemy for {} damage! {} health left", bullet_info.damage, enemy_health.current);
+            bullet_info.hit_something = true;
             commands.entity(event.to_entity_id).despawn_recursive();
 
 

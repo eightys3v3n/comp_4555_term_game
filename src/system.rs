@@ -11,3 +11,4 @@ pub mod enemy_spawner;
 pub mod round_manager;
 pub mod bullet;
 pub mod collisions;
+pub mod hud;

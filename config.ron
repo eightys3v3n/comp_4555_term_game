@@ -64,6 +64,8 @@ Config(
     window: (
         width: 800,
         height: 500,
+        round_counter_text: "Round: ",
+        enemies_counter_text: "Killed: ",
     ),
 
     round: (

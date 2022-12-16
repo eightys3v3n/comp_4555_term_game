@@ -5,6 +5,7 @@ use log::warn;
 use super::super::{
     component::*,
     enums::AppState,
+    resource::counter::Counters,
 };
 
 
@@ -12,6 +13,7 @@ pub fn character_killer(
     mut commands: Commands,
     mut state: ResMut<State<AppState>>,
     characters: Query<(Entity, &Health, Option<&Player>)>,
+    mut counters: ResMut<Counters>,
 ) {
     for (character, health, player) in characters.iter() {
         if health.current <= 0. {
@@ -24,7 +26,10 @@ pub fn character_killer(
                         Err(e) => warn!("Failed to switch into the Game Over state on ` pressed. {}", e),
                     }
                 }
-                None => commands.entity(character).despawn_recursive()
+                None => {
+                    commands.entity(character).despawn_recursive();
+                    counters.enemies_killed += 1;
+                }
             };
         }
     }

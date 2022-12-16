@@ -18,6 +18,7 @@ use resource::{
     player_moved_flag::PlayerMovedFlag,
     round::RoundInfo,
     weapons::Weapons,
+    counter::Counters,
 };
 use system::{
     enemy_movement::enemy_movement,
@@ -32,6 +33,7 @@ use system::{
     round_manager::transition_rounds,
     bullet::*,
     collisions::*,
+    hud,
 };
 use enums::{
     AppState
@@ -57,6 +59,7 @@ fn main() {
         .init_resource::<PlayerMovedFlag>()
         .init_resource::<RoundInfo>()
         .init_resource::<Weapons>()
+        .init_resource::<Counters>()
         .add_state(AppState::MainMenu)
         .add_event::<event::SpawnEnemyEvent>()
         .add_event::<event::RoundEndEvent>()
@@ -117,8 +120,10 @@ fn main() {
                 .with_system(enemy_caller)
                 .with_system(transition_rounds)
                 .with_system(fire_bullet)
+                .with_system(despawner)
                 .with_system(detect_collisions)
                 .with_system(do_collisions)
+                .with_system(hud::updater)
         )
         .add_system(handle_game_over_inputs)
         .add_system(handle_playing_inputs)

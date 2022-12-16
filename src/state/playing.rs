@@ -43,6 +43,64 @@ pub fn setup(
         },
         Player,
     ));
+
+    commands.spawn(NodeBundle {
+        style: Style {
+            size: Size::new(Val::Percent(100.), Val::Percent(100.)),
+            justify_content: JustifyContent::SpaceBetween,
+            ..default()
+        },
+        ..default()
+    })
+    .with_children(|parent| {
+        parent.spawn(NodeBundle {
+            style: Style {
+                size: Size::new(Val::Px(80.0), Val::Percent(100.0)),
+                // border: UiRect::all(Val::Px(2.0)),
+                flex_direction: FlexDirection::Column,
+                justify_content: JustifyContent::FlexStart,
+                ..default()
+            },
+            background_color: Color::rgb(0., 0., 0.).into(),
+            ..default()
+        })
+        .with_children(|parent| {
+            parent.spawn((
+                TextBundle::from_section(
+                    &config.window.round_counter_text,
+                    TextStyle {
+                        font_size: 30.0,
+                        color: Color::rgb(0.0, 0.0, 0.0),
+                        font: asset_server.load(&config.menu.button_font),
+                    },
+                ),
+                HUD,
+                RoundCounter,
+            ));
+            parent.spawn((
+                TextBundle::from_section(
+                    &config.window.enemies_counter_text,
+                    TextStyle {
+                        font_size: 30.0,
+                        color: Color::rgb(0.0, 0.0, 0.0),
+                        font: asset_server.load(&config.menu.button_font),
+                    },
+                ),
+                HUD,
+                EnemiesCounter,
+            ));
+        });
+
+        parent.spawn(NodeBundle {
+            style: Style {
+                size: Size::new(Val::Percent(100.0), Val::Percent(100.0)),
+                // border: UiRect::all(Val::Px(2.0)),
+                ..default()
+            },
+            // background_color: Color::rgb(0., 0., 1.).into(),
+            ..default()
+        });
+    });
 }
 
 pub fn load_map(
