@@ -1,0 +1,8 @@
+# run tests
+clear; cargo test
+
+# run debug version of game
+clear; cargo run --features bevy/dynamic
+
+# increase version number of game
+cargo release <patch,minor,major> --no-verify --no-publish --execute
