@@ -42,6 +42,8 @@ pub fn enemy_movement(
         }
     }
 
+
+    // Handle the AvoidEnemies movement type.
     // calculate how much each other enemy is pushing a given enemy.
     let mut enemy_pushes: HashMap::<Entity, Vec<Vec2>> = HashMap::new();
     for (entity_one, enemy_one_transform, enemy_one, enemy_one_velocity, enemy_one_collide_info) in enemies.iter() {
@@ -94,7 +96,9 @@ pub fn enemy_movement(
     }
 
     // apply the pushes on each enemy so they walk just a bit away from their friends.
-    for (entity, _, _, velocity, _) in enemies.iter_mut() {
+    for (entity, _, enemy, velocity, _) in enemies.iter_mut() {
+        if ! enemy.move_behaviour.contains(&MoveBehaviour::AvoidEnemies) { continue; }
+
         match summed_pushes.get(entity) {
             Some(summed_push) => {
                 let mut new_vel = *summed_push + Vec2::new(velocity.to_xy().0, velocity.to_xy().1);
