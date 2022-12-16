@@ -50,7 +50,7 @@ pub fn handle_playing_inputs(
                                     bullet_type: current_weapon.bullet_type,
                                     start_transform: *player_transform,
                                 });
-                                info!("Player transform: {}, {}", player_transform.translation.x, player_transform.translation.y);
+                                // info!("Player transform: {}, {}", player_transform.translation.x, player_transform.translation.y);
                             } else {
                                 warn!("Unable to fetch the player to get the direction they are facing. Can't fire bullets.");
                             }

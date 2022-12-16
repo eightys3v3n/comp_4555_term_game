@@ -27,8 +27,6 @@ pub fn enemy_spawner(
     tilemap: Res<Tilemap>,
 ) {
     for event in spawn_events.iter() {
-        info!("Spawning a {:?} enemy", event.enemy_type);
-
         let enemy_config: &EnemyConfig = match event.enemy_type {
             EnemyType::Basic => &config.enemy.basic
         };
@@ -102,7 +100,6 @@ pub fn enemy_caller(
     config: Res<Config>,
 ) {
     if round.enemy_counts.Basic > 0 {
-        info!("Calling for spawner to make an enemy.");
         spawn_events.send(SpawnEnemyEvent{
             enemy_type: EnemyType::Basic,
             location: None,

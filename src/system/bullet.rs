@@ -63,7 +63,7 @@ pub fn fire_bullet(
 
         audio.play(asset_server.load(&config.sound.shoot_basic_path));
 
-        info!("Firing bullet {:?} with velocity {:?} and direction {:?}", event.bullet_type, bullet_velocity, event.start_transform.rotation.to_scaled_axis().z.to_degrees());
+        // info!("Firing bullet {:?} with velocity {:?} and direction {:?}", event.bullet_type, bullet_velocity, event.start_transform.rotation.to_scaled_axis().z.to_degrees());
     }
 }
 
