@@ -20,6 +20,10 @@ pub fn detect_collisions(
     for (first_entity, first_transform, first_collide_info) in collidables.iter() {
         for (second_entity, second_transform, second_collide_info) in collidables.iter() {
             if first_entity == second_entity { continue; }
+            if first_collide_info.entity_type == EntityType::Player &&
+                second_collide_info.entity_type == EntityType::Bullet { continue; }
+            else if first_collide_info.entity_type == EntityType::Bullet &&
+                second_collide_info.entity_type == EntityType::Player { continue; }
 
             if first_transform.translation.distance(second_transform.translation) <= first_collide_info.radius + second_collide_info.radius {
                 collision_events.send(CollideEvent {
