@@ -63,7 +63,7 @@ pub fn do_collisions(
             let mut enemy_health = match health_query.get_mut(event.to_entity_id) {
                 Ok(enemy_health) => enemy_health,
                 Err(e) => {
-                    warn!("Found no player health for this player entity? {}", e);
+                    warn!("Found no enemy health for this enemy entity? {}", e);
                     continue
                 }
             };
@@ -84,7 +84,7 @@ pub fn do_collisions(
             let mut enemy_health = match health_query.get_mut(event.from_entity_id) {
                 Ok(enemy_health) => enemy_health,
                 Err(e) => {
-                    warn!("Found no player health for this player entity? {}", e);
+                    warn!("Found no enemy health for this enemy entity? {}", e);
                     continue
                 }
             };
