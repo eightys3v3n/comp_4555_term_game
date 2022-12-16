@@ -61,7 +61,7 @@ pub fn setup(
                 justify_content: JustifyContent::FlexStart,
                 ..default()
             },
-            background_color: Color::rgb(0., 0., 0.).into(),
+            // background_color: Color::rgb(0., 0., 0.).into(),
             ..default()
         })
         .with_children(|parent| {
@@ -70,7 +70,7 @@ pub fn setup(
                     &config.window.round_counter_text,
                     TextStyle {
                         font_size: 30.0,
-                        color: Color::rgb(0.0, 0.0, 0.0),
+                        color: Color::rgb(1.0, 1.0, 1.0),
                         font: asset_server.load(&config.menu.button_font),
                     },
                 ),
@@ -82,7 +82,7 @@ pub fn setup(
                     &config.window.enemies_counter_text,
                     TextStyle {
                         font_size: 30.0,
-                        color: Color::rgb(0.0, 0.0, 0.0),
+                        color: Color::rgb(1.0, 1.0, 1.0),
                         font: asset_server.load(&config.menu.button_font),
                     },
                 ),
