@@ -38,7 +38,7 @@ Config(
         new_game: (
             id: NewGame,
             text: "New Game",
-            image_path: "continue.png",
+            image_path: "button_background.png",
             z_height: 20.0,
             width: 300.0,
             height: 155.0,
@@ -46,7 +46,7 @@ Config(
         exit: (
             id: Exit,
             text: "Exit",
-            image_path: "continue.png",
+            image_path: "button_background.png",
             z_height: 20.0,
             width: 300.0,
             height: 160.0,
@@ -54,7 +54,7 @@ Config(
         main_menu: (
             id: MainMenu,
             text: "Main Menu",
-            image_path: "continue.png",
+            image_path: "button_background.png",
             z_height: 20.0,
             width: 300.0,
             height: 160.0,

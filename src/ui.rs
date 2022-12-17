@@ -28,8 +28,8 @@ pub fn spawn_button(parent: &mut ChildBuilder<'_, '_, '_>,
                 align_items: AlignItems::Center,
                 ..default()
             },
-            // image: UiImage(asset_server.load(&config.menu.new_game.image_path)),
-            background_color: Color::rgb(5.0, 5.0, 5.0).into(),
+            image: UiImage(asset_server.load(&button_config.image_path)),
+            // background_color: Color::rgb(5.0, 5.0, 5.0).into(),
             ..default()
         },
         ButtonInfo {
