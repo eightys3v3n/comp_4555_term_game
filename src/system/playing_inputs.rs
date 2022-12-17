@@ -41,12 +41,14 @@ pub fn handle_playing_inputs(
                                 Ok(_) => info!("Switched into Main Menu state"),
                                 Err(e) => warn!("Failed to switch into the Main Menu state on Escape pressed. {}", e),
                             }
-                        } else if key_code == KeyCode::Grave { // ~ symbol
-                            match state.set(AppState::GameOver) {
-                                Ok(_) => info!("Switched into Game Over state"),
-                                Err(e) => warn!("Failed to switch into the Game Over state on ` pressed. {}", e),
-                            }
-                        } else if key_code == KeyCode::Space {
+                        }
+                        // else if key_code == KeyCode::Grave { // ~ symbol
+                        //     match state.set(AppState::GameOver) {
+                        //         Ok(_) => info!("Switched into Game Over state"),
+                        //         Err(e) => warn!("Failed to switch into the Game Over state on ` pressed. {}", e),
+                        //     }
+                        // }
+                        else if key_code == KeyCode::Space {
                             if ! player_transform_query.is_empty() {
                                 let player_transform = player_transform_query.get_single().unwrap();
 
