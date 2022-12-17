@@ -39,7 +39,7 @@ pub fn transition_rounds(
 
                 info!("Starting round {}", round.number);
 
-                setup_round(&mut round);
+                setup_round(&mut round, config);
 
                 round_start_events.send(RoundStartEvent{round_number: round.number});
             }
@@ -48,10 +48,13 @@ pub fn transition_rounds(
 }
 
 
-fn setup_round(round: &mut ResMut<RoundInfo>) {
+fn setup_round(
+    round: &mut ResMut<RoundInfo>,
+    config: Res<Config>,
+) {
     if round.number == 1 {
         round.enemy_counts.Basic = 5;
     } else {
-        round.enemy_counts.Basic = 5 * u64::pow(2, round.number as u32);
+        round.enemy_counts.Basic = (5. * round.number as f32 * config.round.basic_multiplier) as u64;
     }
 }
