@@ -38,7 +38,7 @@ pub fn setup(
             velocity: Velocity::new(0.0, 0.0),
             health: Health::new(config.player.default_health),
             collide_info: CollideInfo {
-                radius: config.player.width.max(config.player.height) / 2.,
+                radius: (config.player.width.max(config.player.height) / 2.) * 0.9,
                 entity_type: EntityType::Player,
             },
         },
