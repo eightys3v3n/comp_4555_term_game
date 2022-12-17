@@ -36,7 +36,7 @@ pub fn handle_game_over_inputs(
 
         match *interaction {
             Interaction::Clicked => {
-                text.sections[0].value = "Press".to_string();
+                // text.sections[0].value = "Press".to_string();
                 info!("Pressed {:?} button", info.id);
 
                 match info.id {
@@ -53,13 +53,14 @@ pub fn handle_game_over_inputs(
                     _ => {},
                 }
             }
-            Interaction::Hovered => {
-                text.sections[0].value = "Hover".to_string();
-                info!("Hovering {:?} button", info.id);
-            }
-            Interaction::None => {
-                text.sections[0].value = "Button".to_string();
-            }
+            _ => {},
+            // Interaction::Hovered => {
+            //     text.sections[0].value = "Hover".to_string();
+            //     info!("Hovering {:?} button", info.id);
+            // }
+            // Interaction::None => {
+            //     text.sections[0].value = "Button".to_string();
+            // }
         }
     }
 
