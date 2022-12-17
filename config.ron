@@ -91,4 +91,10 @@ Config(
         shoot_basic_path: "bullet.ogg",
         background_music_path: "background_music_Battling_delosanti.ogg",
     ),
+    store: (
+        damage_modifier: (
+            cost: 10.0,
+            amount: Some(1.2),
+        ),
+    ),
 )

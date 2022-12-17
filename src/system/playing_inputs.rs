@@ -12,6 +12,8 @@ use super::super::{
     component::*,
     resource::{
         weapons::Weapons,
+        config::Config,
+        counter::Counters,
     },
 };
 
@@ -20,6 +22,8 @@ pub fn handle_playing_inputs(
     mut keyboard_events: EventReader<KeyboardInput>,
     mut fire_bullet_events: EventWriter<FireBulletEvent>,
     mut current_weapon: ResMut<Weapons>,
+    mut counters: ResMut<Counters>,
+    config: Res<Config>,
     player_transform_query: Query<&Transform, With<Player>>,
 ) {
     if state.current() != &AppState::Playing {
@@ -53,6 +57,15 @@ pub fn handle_playing_inputs(
                                 // info!("Player transform: {}, {}", player_transform.translation.x, player_transform.translation.y);
                             } else {
                                 warn!("Unable to fetch the player to get the direction they are facing. Can't fire bullets.");
+                            }
+                        }
+                        else if key_code == KeyCode::U {
+                            if counters.points >= config.store.damage_modifier.cost {
+                                current_weapon.damage_modifier = (current_weapon.damage_modifier * config.store.damage_modifier.amount.unwrap() * 100.0).round() / 100.0;
+                                counters.points -= config.store.damage_modifier.cost;
+                                info!("Upgrading damage modifier to {}.", current_weapon.damage_modifier);
+                            } else {
+                                info!("Not enough points to upgrade damage modifier.");
                             }
                         }
                     }

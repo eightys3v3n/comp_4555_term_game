@@ -19,6 +19,18 @@ pub struct Config {
     pub round: RoundConfig,
     pub bullet: BulletsConfig,
     pub sound: SoundConfig,
+    pub store: StoreConfig,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct StoreConfig {
+    pub damage_modifier: StoreItemConfig,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct StoreItemConfig {
+    pub cost: f32,
+    pub amount: Option<f32>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]

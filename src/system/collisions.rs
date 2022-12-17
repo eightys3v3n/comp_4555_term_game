@@ -6,7 +6,10 @@ use super::super::{
     component::*,
     enums::*,
     event::*,
-    resource::config::{ Config, BulletConfig },
+    resource::{
+        config::{ Config, BulletConfig },
+        weapons::Weapons,
+    },
 };
 use std::time::{ Duration, SystemTime };
 
@@ -74,6 +77,7 @@ pub fn do_collisions(
     mut bullet_info_query: Query<&mut BulletInfo>,
     mut health_query: Query<&mut Health>,
     mut enemy_query: Query<&mut Enemy>,
+    current_weapon: Res<Weapons>,
     config: Res<Config>,
 ) {
     // Have to implement both the case where a bullet hits an enemy and an enemy hits a bullet.
@@ -106,7 +110,7 @@ pub fn do_collisions(
                 }
             };
 
-            enemy_health.current -= bullet_info.damage;
+            enemy_health.current -= bullet_info.damage * current_weapon.damage_modifier;
 
             info!("Hit an enemy for {} damage! {} health left", bullet_info.damage, enemy_health.current);
             commands.entity(event.from_entity_id).despawn_recursive();
@@ -127,7 +131,7 @@ pub fn do_collisions(
                 }
             };
 
-            enemy_health.current -= bullet_info.damage;
+            enemy_health.current -= bullet_info.damage * current_weapon.damage_modifier;
 
             info!("Hit an enemy for {} damage! {} health left", bullet_info.damage, enemy_health.current);
             commands.entity(event.to_entity_id).despawn_recursive();
