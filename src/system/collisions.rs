@@ -14,25 +14,56 @@ use std::time::{ Duration, SystemTime };
 pub fn detect_collisions(
     mut collision_events: EventWriter<CollideEvent>,
     collidable_query: Query<(Entity, &Transform, &CollideInfo), With<Transform>>,
+    mut bullet_info_query: Query<&mut BulletInfo>,
     config: Res<Config>,
 ) {
     let collidables: Vec<(Entity, &Transform, &CollideInfo)> = collidable_query.iter().collect();
     for (first_entity, first_transform, first_collide_info) in collidables.iter() {
         for (second_entity, second_transform, second_collide_info) in collidables.iter() {
+
+            // Ignore all these collision events
             if first_entity == second_entity { continue; }
             if first_collide_info.entity_type == EntityType::Player &&
                 second_collide_info.entity_type == EntityType::Bullet { continue; }
-            else if first_collide_info.entity_type == EntityType::Bullet &&
+            if first_collide_info.entity_type == EntityType::Bullet &&
                 second_collide_info.entity_type == EntityType::Player { continue; }
+            if first_collide_info.entity_type == EntityType::Bullet &&
+                second_collide_info.entity_type == EntityType::Bullet { continue; }
 
-            if first_transform.translation.distance(second_transform.translation) <= first_collide_info.radius + second_collide_info.radius {
-                collision_events.send(CollideEvent {
-                    from_entity_id: *first_entity,
-                    from_entity_type: first_collide_info.entity_type,
-                    to_entity_id: *second_entity,
-                    to_entity_type: second_collide_info.entity_type,
-                });
+            // to far apart to collide
+            if first_transform.translation.distance(second_transform.translation) >
+                first_collide_info.radius + second_collide_info.radius {
+                continue;
             }
+
+            // Only allow bullets to hit one thing once before being deactivated.
+            if first_collide_info.entity_type == EntityType::Bullet {
+                match bullet_info_query.get_mut(*first_entity) {
+                    Ok(mut info) => {
+                        if info.hit_something { continue; }
+                        else { info.hit_something = true; }
+                    }
+                    Err(e) => {
+                        warn!("Couldn't find bullet info for bullet entity {}", e);
+                    }
+                };
+            }
+            else if second_collide_info.entity_type == EntityType::Bullet {
+                match bullet_info_query.get_mut(*second_entity) {
+                    Ok(mut info) => {
+                        if info.hit_something { continue; }
+                        else { info.hit_something = true; }
+                    }
+                    Err(e) => warn!("Couldn't find bullet info for bullet entity {}", e)
+                };
+            }
+
+            collision_events.send(CollideEvent {
+                from_entity_id: *first_entity,
+                from_entity_type: first_collide_info.entity_type,
+                to_entity_id: *second_entity,
+                to_entity_type: second_collide_info.entity_type,
+            });
         }
     }
 }
@@ -78,8 +109,8 @@ pub fn do_collisions(
             enemy_health.current -= bullet_info.damage;
 
             info!("Hit an enemy for {} damage! {} health left", bullet_info.damage, enemy_health.current);
-            bullet_info.hit_something = true;
             commands.entity(event.from_entity_id).despawn_recursive();
+
         } else if event.from_entity_type == EntityType::Enemy && event.to_entity_type == EntityType::Bullet {
             let mut enemy_health = match health_query.get_mut(event.from_entity_id) {
                 Ok(enemy_health) => enemy_health,
@@ -99,7 +130,6 @@ pub fn do_collisions(
             enemy_health.current -= bullet_info.damage;
 
             info!("Hit an enemy for {} damage! {} health left", bullet_info.damage, enemy_health.current);
-            bullet_info.hit_something = true;
             commands.entity(event.to_entity_id).despawn_recursive();
 
 
