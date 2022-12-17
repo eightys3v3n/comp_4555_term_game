@@ -34,7 +34,7 @@ pub fn enemy_movement(
                                 _ => warn!("Unimplemented enemy movement speed; moving some default amount"),
                             }
                         }
-                        Err(e) => warn!("Couldn't use the player's position to direct enemy movements because there is no player? {}", e)
+                        Err(e) => {}
                     }
                 },
                 _ => {},
