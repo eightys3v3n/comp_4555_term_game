@@ -75,6 +75,9 @@ impl Health {
 pub struct RoundCounter;
 
 #[derive(Component, Debug)]
+pub struct PointsCounter;
+
+#[derive(Component, Debug)]
 pub struct EnemiesCounter;
 
 #[derive(Component, Debug)]
