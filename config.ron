@@ -68,6 +68,7 @@ Config(
         round_counter_text: "Round: ",
         enemies_counter_text: "Killed: ",
         points_counter_text: "Dollars: ",
+        help_text: "Upgrades!\nKey: Thing: Cost\nU: Damage $10\nRange $10",
     ),
 
     round: (

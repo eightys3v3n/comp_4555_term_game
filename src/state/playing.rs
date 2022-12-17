@@ -109,12 +109,37 @@ pub fn setup(
 
         parent.spawn(NodeBundle {
             style: Style {
-                size: Size::new(Val::Percent(100.0), Val::Percent(100.0)),
+                size: Size::new(Val::Auto, Val::Percent(100.0)),
                 // border: UiRect::all(Val::Px(2.0)),
                 ..default()
             },
             // background_color: Color::rgb(0., 0., 1.).into(),
             ..default()
+        });
+
+        parent.spawn(NodeBundle {
+            style: Style {
+                size: Size::new(Val::Px(170.0), Val::Percent(100.0)),
+                // border: UiRect::all(Val::Px(2.0)),
+                flex_direction: FlexDirection::Column,
+                justify_content: JustifyContent::FlexStart,
+                ..default()
+            },
+            // background_color: Color::rgb(0., 0., 0.).into(),
+            ..default()
+        })
+        .with_children(|parent| {
+            parent.spawn((
+                TextBundle::from_section(
+                    &config.window.help_text,
+                    TextStyle {
+                        font_size: 20.0,
+                        color: Color::rgb(1.0, 1.0, 1.0),
+                        font: asset_server.load(&config.menu.button_font),
+                    },
+                ),
+                HUD,
+            ));
         });
     });
 
