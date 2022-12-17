@@ -91,6 +91,7 @@ pub struct EnemyConfig {
     pub damage: f32,
     pub hit_cooldown: u64,
     pub health: f32,
+    pub points: f32,
 }
 
 #[derive(Debug, Deserialize, Serialize)]

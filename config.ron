@@ -1,7 +1,7 @@
 Config(
     player: (
         image_path: "survivor-idle_handgun_0.png",
-        move_speed: 50.0,
+        move_speed: 60.0,
         width: 50.0,
         height: 50.0,
         z_height: 10.0,
@@ -26,6 +26,7 @@ Config(
             damage: 50.0,
             hit_cooldown: 2000,
             health: 100.0,
+            points: 1.0,
         ),
     ),
 

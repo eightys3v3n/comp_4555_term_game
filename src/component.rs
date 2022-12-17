@@ -32,6 +32,7 @@ pub struct Enemy {
     pub move_behaviour: Vec<MoveBehaviour>,
     pub r#type: EnemyType,
     pub last_hit_time: Option<SystemTime>,
+    pub points: f32,
 }
 
 impl fmt::Display for Enemy {

@@ -54,7 +54,7 @@ pub fn enemy_spawner(
                 velocity: Velocity::new(10.0, 0.0),
                 health: Health::new(enemy_config.health),
                 collide_info: CollideInfo {
-                    radius: enemy_config.width.max(enemy_config.height) / 2.,
+                    radius: enemy_config.width.max(enemy_config.height) / 2. - 0.5,
                     entity_type: EntityType::Enemy,
                 },
             },
@@ -62,6 +62,7 @@ pub fn enemy_spawner(
                 move_behaviour: enemy_config.move_behaviour.clone(),
                 r#type: event.enemy_type,
                 last_hit_time: None::<SystemTime>,
+                points: enemy_config.points,
             },
         ));
     }
