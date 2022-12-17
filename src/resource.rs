@@ -4,3 +4,4 @@ pub mod player_moved_flag;
 pub mod round;
 pub mod weapons;
 pub mod counter;
+pub mod store;

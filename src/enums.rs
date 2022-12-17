@@ -1,5 +1,20 @@
 use serde::{Deserialize, Serialize};
 
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
+pub enum TextField {
+    HelpText,
+    EnemiesCounter,
+    RoundCounter,
+    PointsCounter,
+    DamageUpgradeCost,
+    RangeUpgradeCost,
+}
+
+#[derive(Debug, Hash, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
+pub enum Modifier {
+    Damage,
+    Range,
+}
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub enum EntityType {

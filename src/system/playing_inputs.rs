@@ -7,13 +7,14 @@ use bevy::{
 };
 use log::warn;
 use super::super::{
-    enums::AppState,
+    enums::*,
     event::*,
     component::*,
     resource::{
         weapons::Weapons,
         config::Config,
         counter::Counters,
+        store::Store,
     },
 };
 
@@ -23,6 +24,7 @@ pub fn handle_playing_inputs(
     mut fire_bullet_events: EventWriter<FireBulletEvent>,
     mut current_weapon: ResMut<Weapons>,
     mut counters: ResMut<Counters>,
+    mut store: ResMut<Store>,
     config: Res<Config>,
     player_transform_query: Query<&Transform, With<Player>>,
 ) {
@@ -62,10 +64,13 @@ pub fn handle_playing_inputs(
                             }
                         }
                         else if key_code == KeyCode::U {
-                            if counters.points >= config.store.damage_modifier.cost {
-                                current_weapon.damage_modifier = (current_weapon.damage_modifier * config.store.damage_modifier.amount.unwrap() * 100.0).round() / 100.0;
-                                counters.points -= config.store.damage_modifier.cost;
+                            let damage_modifier = config.store.modifiers.get(&Modifier::Damage).unwrap();
+                            let damage_cost = damage_modifier.cost * 2_f32.powi(store.purchase_count_damage);
+                            if counters.points >= damage_cost {
+                                current_weapon.damage_modifier = (current_weapon.damage_modifier * damage_modifier.amount.unwrap() * 100.0).round() / 100.0;
+                                counters.points -= damage_cost;
                                 info!("Upgrading damage modifier to {}.", current_weapon.damage_modifier);
+                                store.purchase_count_damage += 1;
                             } else {
                                 info!("Not enough points to upgrade damage modifier.");
                             }

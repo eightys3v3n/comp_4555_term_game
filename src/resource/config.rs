@@ -3,6 +3,7 @@ use std::{ fs, fmt };
 use log::{ info };
 use bevy::prelude::*;
 use super::super::enums::*;
+use std::collections::HashMap;
 
 
 pub const DEFAULT_CONFIG_FILE: &str = "config.ron";
@@ -24,13 +25,15 @@ pub struct Config {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct StoreConfig {
-    pub damage_modifier: StoreItemConfig,
+    pub modifiers: HashMap<Modifier, StoreItemConfig>,
+    pub help_text: String,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct StoreItemConfig {
     pub cost: f32,
     pub amount: Option<f32>,
+    pub text: String,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -63,7 +66,6 @@ pub struct WindowConfig {
     pub round_counter_text: String,
     pub enemies_counter_text: String,
     pub points_counter_text: String,
-    pub help_text: String,
 }
 
 #[derive(Debug, Deserialize, Serialize)]

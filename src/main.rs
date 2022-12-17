@@ -19,6 +19,7 @@ use resource::{
     round::RoundInfo,
     weapons::Weapons,
     counter::Counters,
+    store::Store,
 };
 use system::{
     enemy_movement::enemy_movement,
@@ -60,6 +61,7 @@ fn main() {
         .init_resource::<RoundInfo>()
         .init_resource::<Weapons>()
         .init_resource::<Counters>()
+        .init_resource::<Store>()
         .add_state(AppState::MainMenu)
         .add_event::<event::SpawnEnemyEvent>()
         .add_event::<event::RoundEndEvent>()

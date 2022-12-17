@@ -8,6 +8,11 @@ pub mod velocity;
 pub use velocity::Velocity;
 
 #[derive(Component, Debug)]
+pub struct UpdatableTextField {
+    pub field: TextField,
+}
+
+#[derive(Component, Debug)]
 pub struct CollideInfo {
     pub radius: f32,
     pub entity_type: EntityType,
@@ -71,15 +76,6 @@ impl Health {
 
 
 // Tagging
-#[derive(Component, Debug)]
-pub struct RoundCounter;
-
-#[derive(Component, Debug)]
-pub struct PointsCounter;
-
-#[derive(Component, Debug)]
-pub struct EnemiesCounter;
-
 #[derive(Component, Debug)]
 pub struct HUD;
 

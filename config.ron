@@ -68,7 +68,6 @@ Config(
         round_counter_text: "Round: ",
         enemies_counter_text: "Killed: ",
         points_counter_text: "Dollars: ",
-        help_text: "Upgrades!\nKey: Thing: Cost\nU: Damage $10\nRange $10",
     ),
 
     round: (
@@ -92,9 +91,18 @@ Config(
         background_music_path: "background_music_Battling_delosanti.ogg",
     ),
     store: (
-        damage_modifier: (
-            cost: 10.0,
-            amount: Some(1.2),
-        ),
+        modifiers: {
+            Damage: (
+                cost: 10.0,
+                amount: Some(1.2),
+                text: "U: Damage++: ",
+            ),
+            Range: (
+                cost: 10.0,
+                amount: Some(1.2),
+                text: "I: Range++: ",
+            ),
+        },
+        help_text: "Upgrades!\nKey: Thing: Cost",
     ),
 )

@@ -79,7 +79,9 @@ pub fn setup(
                     },
                 ),
                 HUD,
-                RoundCounter,
+                UpdatableTextField {
+                    field: TextField::RoundCounter,
+                },
             ));
             parent.spawn((
                 TextBundle::from_section(
@@ -91,7 +93,9 @@ pub fn setup(
                     },
                 ),
                 HUD,
-                EnemiesCounter,
+                UpdatableTextField {
+                    field: TextField::EnemiesCounter,
+                },
             ));
             parent.spawn((
                 TextBundle::from_section(
@@ -103,7 +107,9 @@ pub fn setup(
                     },
                 ),
                 HUD,
-                PointsCounter,
+                UpdatableTextField {
+                    field: TextField::PointsCounter,
+                },
             ));
         });
 
@@ -129,15 +135,19 @@ pub fn setup(
             ..default()
         })
         .with_children(|parent| {
-            parent.spawn((
-                TextBundle::from_section(
-                    &config.window.help_text,
+            let mut text_sections: Vec<TextSection> = Vec::new();
+            for (modifier, modifier_config) in &config.store.modifiers {
+                text_sections.push(TextSection::new(
+                    format!("{}\n", &modifier_config.text),
                     TextStyle {
-                        font_size: 20.0,
-                        color: Color::rgb(1.0, 1.0, 1.0),
                         font: asset_server.load(&config.menu.button_font),
+                        font_size: 20.0,
+                        color: Color::WHITE,
                     },
-                ),
+                ));
+            }
+            parent.spawn((
+                TextBundle::from_sections(text_sections),
                 HUD,
             ));
         });
