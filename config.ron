@@ -86,5 +86,6 @@ Config(
     ),
     sound: (
         shoot_basic_path: "bullet.ogg",
+        background_music_path: "background_music_Battling_delosanti.ogg",
     ),
 )

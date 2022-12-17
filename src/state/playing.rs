@@ -14,6 +14,7 @@ pub fn setup(
     asset_server: Res<AssetServer>,
     config: Res<Config>,
     entities: Query<(Entity, AnyOf<(With<Player>, With<Enemy>)>)>,
+    audio: Res<Audio>,
 ) {
     // Despawn all existing game stuff that needs to be reset.
     if ! entities.is_empty() {
@@ -104,6 +105,11 @@ pub fn setup(
             ..default()
         });
     });
+
+    audio.play_with_settings(
+        asset_server.load(&config.sound.background_music_path),
+        PlaybackSettings::LOOP.with_volume(0.5),
+    );
 }
 
 pub fn load_map(
