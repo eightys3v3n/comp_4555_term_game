@@ -10,6 +10,7 @@ use super::super::{
         config::Config,
         round::RoundInfo,
         counter::Counters,
+        store::Store,
     },
 };
 
@@ -20,6 +21,7 @@ pub fn updater(
     config: Res<Config>,
     asset_server: Res<AssetServer>,
     counters: Res<Counters>,
+    store: Res<Store>,
 ) {
     for (mut text, updatable_text) in query.iter_mut() {
         match updatable_text.field {
@@ -32,6 +34,11 @@ pub fn updater(
             TextField::PointsCounter => {
                 text.sections[0].value = format!("{}{}", config.window.points_counter_text, counters.points);
             },
+            TextField::DamageModifier => {
+                let damage_modifier = config.store.modifiers.get(&Modifier::Damage).unwrap();
+                let damage_cost = damage_modifier.cost * 2_f32.powi(store.purchase_count_damage);
+                text.sections[1].value = format!("${}", damage_cost);
+            }
             _ => {},
         };
     }

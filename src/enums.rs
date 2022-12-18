@@ -1,13 +1,13 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Hash, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub enum TextField {
     HelpText,
     EnemiesCounter,
     RoundCounter,
     PointsCounter,
-    DamageUpgradeCost,
-    RangeUpgradeCost,
+    DamageModifier,
+    RangeModifier,
 }
 
 #[derive(Debug, Hash, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]

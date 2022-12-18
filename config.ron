@@ -97,11 +97,13 @@ Config(
                 cost: 10.0,
                 amount: Some(1.2),
                 text: "U: Damage++: ",
+                field: DamageModifier,
             ),
             Range: (
                 cost: 10.0,
                 amount: Some(1.2),
                 text: "I: Range++: ",
+                field: RangeModifier,
             ),
         },
         help_text: "Upgrades!\nKey: Thing: Cost",

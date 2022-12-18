@@ -7,6 +7,7 @@ use super::super::{
     enums::*,
     component::*,
 };
+use std::collections::HashMap;
 
 
 pub fn setup(
@@ -135,21 +136,39 @@ pub fn setup(
             ..default()
         })
         .with_children(|parent| {
-            let mut text_sections: Vec<TextSection> = Vec::new();
+            let mut fields: HashMap<TextField, Vec<TextSection>> = HashMap::new();
             for (modifier, modifier_config) in &config.store.modifiers {
-                text_sections.push(TextSection::new(
-                    format!("{}\n", &modifier_config.text),
-                    TextStyle {
-                        font: asset_server.load(&config.menu.button_font),
-                        font_size: 20.0,
-                        color: Color::WHITE,
+                fields.insert(
+                    modifier_config.field,
+                    vec!(
+                        TextSection::new(
+                            format!("{}", &modifier_config.text),
+                            TextStyle {
+                                font: asset_server.load(&config.menu.button_font),
+                                font_size: 20.0,
+                                color: Color::WHITE,
+                            },
+                        ),
+                        TextSection::new(
+                            format!("${}\n", &modifier_config.cost),
+                            TextStyle {
+                                font: asset_server.load(&config.menu.button_font),
+                                font_size: 20.0,
+                                color: Color::WHITE,
+                            },
+                        ),
+                    ),
+                );
+            }
+            for (text_field, text_sections) in &fields {
+                parent.spawn((
+                    TextBundle::from_sections(text_sections.into_iter().cloned()),
+                    UpdatableTextField {
+                        field: *text_field,
                     },
+                    HUD,
                 ));
             }
-            parent.spawn((
-                TextBundle::from_sections(text_sections),
-                HUD,
-            ));
         });
     });
 

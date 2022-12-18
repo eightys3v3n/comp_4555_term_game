@@ -34,6 +34,7 @@ pub struct StoreItemConfig {
     pub cost: f32,
     pub amount: Option<f32>,
     pub text: String,
+    pub field: TextField,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
