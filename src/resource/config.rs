@@ -68,6 +68,7 @@ pub struct WindowConfig {
     pub round_counter_text: String,
     pub enemies_counter_text: String,
     pub points_counter_text: String,
+    pub health_text: String,
 }
 
 #[derive(Debug, Deserialize, Serialize)]

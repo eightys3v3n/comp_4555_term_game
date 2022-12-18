@@ -99,6 +99,30 @@ pub fn setup(
                 },
             ));
             parent.spawn((
+                TextBundle::from_sections([
+                    TextSection::new(
+                        &config.window.health_text,
+                        TextStyle {
+                            font_size: 30.0,
+                            color: Color::rgb(1.0, 1.0, 1.0),
+                            font: asset_server.load(&config.menu.button_font),
+                        },
+                    ),
+                    TextSection::new(
+                        format!("{}/{}", 1, 1),
+                        TextStyle {
+                            font_size: 30.0,
+                            color: Color::rgb(1.0, 1.0, 1.0),
+                            font: asset_server.load(&config.menu.button_font),
+                        },
+                    ),
+                ]),
+                HUD,
+                UpdatableTextField {
+                    field: TextField::Health,
+                },
+            ));
+            parent.spawn((
                 TextBundle::from_section(
                     &config.window.points_counter_text,
                     TextStyle {
