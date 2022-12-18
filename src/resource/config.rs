@@ -40,6 +40,7 @@ pub struct StoreItemConfig {
 pub struct SoundConfig {
     pub shoot_basic_path: String,
     pub background_music_path: String,
+    pub hurt_path: String,
 }
 
 #[derive(Debug, Deserialize, Serialize)]

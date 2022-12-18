@@ -77,6 +77,8 @@ pub fn do_collisions(
     mut bullet_info_query: Query<&mut BulletInfo>,
     mut health_query: Query<&mut Health>,
     mut enemy_query: Query<&mut Enemy>,
+    audio: Res<Audio>,
+    asset_server: Res<AssetServer>,
     current_weapon: Res<Weapons>,
     config: Res<Config>,
 ) {
@@ -174,6 +176,7 @@ pub fn do_collisions(
             };
 
             player_health.current -= damage;
+            audio.play(asset_server.load(&config.sound.hurt_path));
 
             info!("Player ran into a {:?} Enemy which does {} damage.", enemy_info.r#type, damage);
         } else if event.from_entity_type == EntityType::Enemy && event.to_entity_type == EntityType::Player {
