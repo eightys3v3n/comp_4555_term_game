@@ -57,7 +57,7 @@ pub fn handle_playing_inputs(
                                 let player_transform = player_transform_query.get_single().unwrap();
 
                                 if ! current_weapon.last_fire_time.is_none() {
-                                    if current_weapon.last_fire_time.unwrap().elapsed().unwrap() < Duration::from_millis((config.player.fire_delay as f32 * current_weapon.fire_rate_modifier) as u64) {
+                                    if current_weapon.last_fire_time.unwrap().elapsed().unwrap() < Duration::from_millis((config.player.fire_delay as f32 / current_weapon.fire_rate_modifier) as u64) {
                                         continue;
                                         // can't fire because too soon.
                                     }

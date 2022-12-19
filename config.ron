@@ -123,7 +123,7 @@ Config(
             ),
             FireRate: (
                 cost: 10.0,
-                amount: Some(0.9),
+                amount: Some(1.2),
                 text: "O: Fire Rate++: ",
                 field: FireRateModifier,
             ),
