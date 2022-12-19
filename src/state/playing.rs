@@ -182,7 +182,23 @@ pub fn setup(
             ..default()
         })
         .with_children(|parent| {
+            parent.spawn((
+                TextBundle::from_section(
+                    &config.store.help_text,
+                    TextStyle {
+                        font_size: 20.0,
+                        color: Color::rgb(1.0, 1.0, 1.0),
+                        font: asset_server.load(&config.menu.button_font),
+                    },
+                ),
+                HUD,
+                UpdatableTextField {
+                    field: TextField::HelpText,
+                },
+            ));
+
             let mut fields: HashMap<TextField, Vec<TextSection>> = HashMap::new();
+
             for (modifier, modifier_config) in &config.store.modifiers {
                 fields.insert(
                     modifier_config.field,
