@@ -86,8 +86,8 @@ Config(
     ),
 
     round: (
-        basic_multiplier: 1.5,
-        tank_multiplier: 1.5,
+        basic_multiplier: 1.1,
+        tank_multiplier: 1.2,
         start_delay: 10,
     ),
     bullet: (
