@@ -112,7 +112,7 @@ pub fn do_collisions(
                 }
             };
 
-            enemy_health.current -= bullet_info.damage * current_weapon.damage_modifier;
+            enemy_health.current -= bullet_info.damage;
 
             info!("Hit an enemy for {} damage! {} health left", bullet_info.damage, enemy_health.current);
             commands.entity(event.from_entity_id).despawn_recursive();
@@ -133,7 +133,7 @@ pub fn do_collisions(
                 }
             };
 
-            enemy_health.current -= bullet_info.damage * current_weapon.damage_modifier;
+            enemy_health.current -= bullet_info.damage;
 
             info!("Hit an enemy for {} damage! {} health left", bullet_info.damage, enemy_health.current);
             commands.entity(event.to_entity_id).despawn_recursive();

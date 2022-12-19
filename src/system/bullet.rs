@@ -6,13 +6,17 @@ use super::super::{
     component::*,
     enums::*,
     event::*,
-    resource::config::{ Config, BulletConfig },
+    resource::{
+        config::{ Config, BulletConfig },
+        weapons::Weapons,
+    },
 };
 
 
 pub fn fire_bullet(
     mut commands: Commands,
     mut fire_bullet_events: EventReader<FireBulletEvent>,
+    current_weapon: Res<Weapons>,
     asset_server: Res<AssetServer>,
     config: Res<Config>,
     audio: Res<Audio>
@@ -49,9 +53,9 @@ pub fn fire_bullet(
                 velocity: Velocity::new(bullet_config.speed, event.start_transform.rotation.to_scaled_axis().z.to_degrees()),
                 bullet_info: BulletInfo {
                     r#type: event.bullet_type,
-                    range: bullet_config.range,
+                    range: bullet_config.range * current_weapon.range_modifier,
                     start_transform: event.start_transform,
-                    damage: bullet_config.damage,
+                    damage: bullet_config.damage * current_weapon.damage_modifier,
                     hit_something: false,
                 },
                 collide_info: CollideInfo {

@@ -10,6 +10,7 @@ pub struct Weapons {
     pub bullet_type: BulletType,
     pub weapon: WeaponType,
     pub damage_modifier: f32,
+    pub range_modifier: f32,
 }
 
 impl Default for Weapons {
@@ -19,6 +20,7 @@ impl Default for Weapons {
             bullet_type: BulletType::Basic,
             weapon: WeaponType:: Pistol,
             damage_modifier: 1.0,
+            range_modifier: 1.0,
         }
     }
 }

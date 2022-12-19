@@ -2,7 +2,11 @@ use bevy::prelude::*;
 use super::super::{
     resource::{
         config::Config,
-        tilemap::Tilemap
+        tilemap::Tilemap,
+        round::{ RoundInfo, EnemyCount },
+        weapons::Weapons,
+        counter::Counters,
+        store::Store,
     },
     enums::*,
     component::*,
@@ -16,13 +20,31 @@ pub fn setup(
     config: Res<Config>,
     entities: Query<(Entity, AnyOf<(With<Player>, With<Enemy>)>)>,
     audio: Res<Audio>,
+    mut current_weapon: ResMut<Weapons>,
+    mut round: ResMut<RoundInfo>,
+    mut counters: ResMut<Counters>,
+    mut store: ResMut<Store>,
 ) {
+    current_weapon.damage_modifier = 1.0;
+    current_weapon.range_modifier = 1.0;
+    store.purchase_count_damage = 0;
+    store.purchase_count_range = 0;
+    round.number = 0;
+    round.start_time = None;
+    round.end_time = None;
+    round.enemy_counts = EnemyCount{ Basic: 0 };
+    counters.points = 0.;
+    counters.enemies_killed = 0;
+
+
     // Despawn all existing game stuff that needs to be reset.
     if ! entities.is_empty() {
         for (entity, _) in entities.iter() {
             commands.entity(entity).despawn();
         }
     }
+
+
 
     // Spawn in all game stuff.
     commands.spawn((

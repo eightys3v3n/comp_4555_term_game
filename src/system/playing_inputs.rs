@@ -75,6 +75,18 @@ pub fn handle_playing_inputs(
                                 info!("Not enough points to upgrade damage modifier.");
                             }
                         }
+                        else if key_code == KeyCode::I {
+                            let range_modifier = config.store.modifiers.get(&Modifier::Range).unwrap();
+                            let range_cost = range_modifier.cost * 2_f32.powi(store.purchase_count_range);
+                            if counters.points >= range_cost {
+                                current_weapon.range_modifier = (current_weapon.range_modifier * range_modifier.amount.unwrap() * 100.0).round() / 100.0;
+                                counters.points -= range_cost;
+                                info!("Upgrading range modifier to {}.", current_weapon.range_modifier);
+                                store.purchase_count_range += 1;
+                            } else {
+                                info!("Not enough points to upgrade range modifier.");
+                            }
+                        }
                     }
                     None => {}
                 }

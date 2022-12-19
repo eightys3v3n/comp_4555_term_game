@@ -40,6 +40,11 @@ pub fn updater(
                 let damage_cost = damage_modifier.cost * 2_f32.powi(store.purchase_count_damage);
                 text.sections[1].value = format!("${}", damage_cost);
             }
+            TextField::RangeModifier => {
+                let range_modifier = config.store.modifiers.get(&Modifier::Range).unwrap();
+                let range_cost = range_modifier.cost * 2_f32.powi(store.purchase_count_range);
+                text.sections[1].value = format!("${}", range_cost);
+            },
             TextField::Health => {
                 if player_health_query.is_empty() {
                     warn!("Can't find the player health object to update the HUD");
@@ -48,7 +53,7 @@ pub fn updater(
                 let player_health = player_health_query.get_single().unwrap();
 
                 text.sections[1].value = format!("{}/{}", player_health.current, player_health.max);
-            }
+            },
             _ => {},
         };
     }
