@@ -61,7 +61,7 @@ pub fn enemy_movement(
             if entity_one == entity_two { continue; }
 
             let distance = enemy_one_transform.translation.distance(enemy_two_transform.translation);
-            let max_force_range = enemy_one_collide_info.radius + enemy_two_collide_info.radius;
+            let max_force_range = enemy_one_collide_info.radius + enemy_two_collide_info.radius + 20.;
             if distance > max_force_range { continue; }
 
             let power_of_force;
