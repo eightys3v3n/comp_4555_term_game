@@ -31,7 +31,7 @@ Config(
         ),
         tank: (
             type: Tank,
-            move_speed: 20.0,
+            move_speed: 15.0,
             move_behaviour: [AvoidEnemies, PointedToPlayer],
             image_path: "zombie_2.png",
             z_height: 9.0,

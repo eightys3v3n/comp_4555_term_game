@@ -33,7 +33,7 @@ pub fn enemy_movement(
                                 EnemyType::Basic => enemy_velocity.scalar = config.enemy.basic.move_speed,
                                 EnemyType::Tank => enemy_velocity.scalar = config.enemy.tank.move_speed,
                                 _ => warn!("Unimplemented enemy movement speed; moving some default amount"),
-                            }
+                            };
                         }
                         Err(e) => {}
                     }
@@ -103,7 +103,13 @@ pub fn enemy_movement(
         match summed_pushes.get(entity) {
             Some(summed_push) => {
                 let mut new_vel = *summed_push + Vec2::new(velocity.to_xy().0, velocity.to_xy().1);
-                new_vel = new_vel.normalize_or_zero() * config.enemy.basic.move_speed;
+
+                match enemy.r#type {
+                    EnemyType::Basic => new_vel = new_vel.normalize_or_zero() * config.enemy.basic.move_speed,
+                    EnemyType::Tank => new_vel = new_vel.normalize_or_zero() * config.enemy.tank.move_speed,
+                    _ => warn!("Unimplemented enemy movement speed; moving some default amount"),
+                };
+
                 velocity.from_xy(new_vel.x, new_vel.y);
             },
             None => {
