@@ -26,6 +26,7 @@ pub fn handle_playing_inputs(
     mut current_weapon: ResMut<Weapons>,
     mut counters: ResMut<Counters>,
     mut store: ResMut<Store>,
+    mut player_health_query: Query<&mut Health, With<Player>>,
     config: Res<Config>,
     player_transform_query: Query<&Transform, With<Player>>,
 ) {
@@ -106,6 +107,29 @@ pub fn handle_playing_inputs(
                                 store.purchase_count_fire_rate += 1;
                             } else {
                                 info!("Not enough points to upgrade fire rate modifier.");
+                            }
+                        }
+                        else if key_code == KeyCode::Y {
+                            if player_health_query.is_empty() {
+                                warn!("Can't find player health component to heal");
+                                continue;
+                            }
+                            let mut player_health = player_health_query.get_single_mut().unwrap();
+
+                            if player_health.current == player_health.max {
+                                info!("Not healing because player is already full health");
+                                continue;
+                            }
+
+                            let heal_modifier = config.store.modifiers.get(&Modifier::Heal).unwrap();
+                            let heal_cost = heal_modifier.cost * 2_f32.powi(store.purchase_count_heal);
+                            if counters.points >= heal_cost {
+                                counters.points -= heal_cost;
+                                info!("Healing");
+                                player_health.current = player_health.max;
+                                store.purchase_count_heal += 1;
+                            } else {
+                                info!("Not enough points to heal.");
                             }
                         }
                     }

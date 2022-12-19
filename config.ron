@@ -127,6 +127,12 @@ Config(
                 text: "O: Fire Rate++: ",
                 field: FireRateModifier,
             ),
+            Heal: (
+                cost: 10.0,
+                amount: Some(0.9),
+                text: "Y: Heal: ",
+                field: Heal,
+            ),
         },
         help_text: "Upgrades!\nKey: Thing: Cost",
     ),
