@@ -6,6 +6,7 @@ use super::super::{
     resource::{
         config::Config,
         round::RoundInfo,
+        counter::Counters,
     },
     event::*,
 };
@@ -20,6 +21,7 @@ pub fn transition_rounds(
     mut round: ResMut<RoundInfo>,
     mut round_start_events: EventWriter<RoundStartEvent>,
     mut round_end_events: EventWriter<RoundEndEvent>,
+    mut counters: ResMut<Counters>,
     enemies: Query<(), With<Enemy>>,
 ) {
     // End the round when there is no end time and the enemy count is 0.
@@ -29,6 +31,8 @@ pub fn transition_rounds(
                 info!("No more enemies left, ending round {}", round.number);
                 round.end_time = Some(SystemTime::now());
                 round_end_events.send(RoundEndEvent{round_number: round.number});
+
+                counters.points += round.number as f32 * 5.;
             }
         }
         Some(end_time) => {
