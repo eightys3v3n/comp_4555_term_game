@@ -45,6 +45,11 @@ pub fn updater(
                 let range_cost = range_modifier.cost * 2_f32.powi(store.purchase_count_range);
                 text.sections[1].value = format!("${}", range_cost);
             },
+            TextField::FireRateModifier => {
+                let fire_rate_modifier = config.store.modifiers.get(&Modifier::FireRate).unwrap();
+                let fire_rate_cost = fire_rate_modifier.cost * 2_f32.powi(store.purchase_count_fire_rate);
+                text.sections[1].value = format!("${}", fire_rate_cost);
+            },
             TextField::Health => {
                 if player_health_query.is_empty() {
                     warn!("Can't find the player health object to update the HUD");

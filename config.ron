@@ -121,6 +121,12 @@ Config(
                 text: "I: Range++: ",
                 field: RangeModifier,
             ),
+            FireRate: (
+                cost: 10.0,
+                amount: Some(0.9),
+                text: "O: Fire Rate++: ",
+                field: FireRateModifier,
+            ),
         },
         help_text: "Upgrades!\nKey: Thing: Cost",
     ),

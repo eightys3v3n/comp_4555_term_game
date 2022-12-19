@@ -91,6 +91,7 @@ pub struct PlayerConfig {
     pub height: f32,
     pub z_height: f32,
     pub default_health: f32,
+    pub fire_delay: u64,
 }
 
 #[derive(Debug, Deserialize, Serialize)]

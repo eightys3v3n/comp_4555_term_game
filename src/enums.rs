@@ -8,6 +8,7 @@ pub enum TextField {
     PointsCounter,
     DamageModifier,
     RangeModifier,
+    FireRateModifier,
     Health,
 }
 
@@ -15,6 +16,7 @@ pub enum TextField {
 pub enum Modifier {
     Damage,
     Range,
+    FireRate,
 }
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]

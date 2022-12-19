@@ -5,6 +5,7 @@ use bevy::{
         ButtonState,
     },
 };
+use std::time::{ Duration, SystemTime };
 use log::warn;
 use super::super::{
     enums::*,
@@ -54,10 +55,18 @@ pub fn handle_playing_inputs(
                             if ! player_transform_query.is_empty() {
                                 let player_transform = player_transform_query.get_single().unwrap();
 
+                                if ! current_weapon.last_fire_time.is_none() {
+                                    if current_weapon.last_fire_time.unwrap().elapsed().unwrap() < Duration::from_millis((config.player.fire_delay as f32 * current_weapon.fire_rate_modifier) as u64) {
+                                        continue;
+                                        // can't fire because too soon.
+                                    }
+                                }
+
                                 fire_bullet_events.send(FireBulletEvent{
                                     bullet_type: current_weapon.bullet_type,
                                     start_transform: *player_transform,
                                 });
+                                current_weapon.last_fire_time = Some(SystemTime::now());
                                 // info!("Player transform: {}, {}", player_transform.translation.x, player_transform.translation.y);
                             } else {
                                 warn!("Unable to fetch the player to get the direction they are facing. Can't fire bullets.");
@@ -85,6 +94,18 @@ pub fn handle_playing_inputs(
                                 store.purchase_count_range += 1;
                             } else {
                                 info!("Not enough points to upgrade range modifier.");
+                            }
+                        }
+                        else if key_code == KeyCode::O {
+                            let fire_rate_modifier = config.store.modifiers.get(&Modifier::FireRate).unwrap();
+                            let fire_rate_cost = fire_rate_modifier.cost * 2_f32.powi(store.purchase_count_fire_rate);
+                            if counters.points >= fire_rate_cost {
+                                current_weapon.fire_rate_modifier = (current_weapon.fire_rate_modifier * fire_rate_modifier.amount.unwrap() * 100.0).round() / 100.0;
+                                counters.points -= fire_rate_cost;
+                                info!("Upgrading fire_rate modifier to {}.", current_weapon.fire_rate_modifier);
+                                store.purchase_count_fire_rate += 1;
+                            } else {
+                                info!("Not enough points to upgrade fire rate modifier.");
                             }
                         }
                     }

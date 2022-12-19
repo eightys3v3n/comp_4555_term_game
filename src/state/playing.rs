@@ -27,8 +27,10 @@ pub fn setup(
 ) {
     current_weapon.damage_modifier = 1.0;
     current_weapon.range_modifier = 1.0;
+    current_weapon.fire_rate_modifier = 1.0;
     store.purchase_count_damage = 0;
     store.purchase_count_range = 0;
+    store.purchase_count_fire_rate = 0;
     round.number = 0;
     round.start_time = None;
     round.end_time = None;
