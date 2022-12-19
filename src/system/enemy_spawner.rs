@@ -28,7 +28,8 @@ pub fn enemy_spawner(
 ) {
     for event in spawn_events.iter() {
         let enemy_config: &EnemyConfig = match event.enemy_type {
-            EnemyType::Basic => &config.enemy.basic
+            EnemyType::Basic => &config.enemy.basic,
+            EnemyType::Tank => &config.enemy.tank,
         };
 
         let transform: Transform = match event.location {
@@ -106,5 +107,12 @@ pub fn enemy_caller(
             location: None,
         });
         round.enemy_counts.Basic = round.enemy_counts.Basic - 1;
+    }
+    if round.enemy_counts.Tank > 0 {
+        spawn_events.send(SpawnEnemyEvent{
+            enemy_type: EnemyType::Tank,
+            location: None,
+        });
+        round.enemy_counts.Tank = round.enemy_counts.Tank - 1;
     }
 }

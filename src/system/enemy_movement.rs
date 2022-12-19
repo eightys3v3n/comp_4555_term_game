@@ -31,6 +31,7 @@ pub fn enemy_movement(
 
                             match enemy.r#type {
                                 EnemyType::Basic => enemy_velocity.scalar = config.enemy.basic.move_speed,
+                                EnemyType::Tank => enemy_velocity.scalar = config.enemy.tank.move_speed,
                                 _ => warn!("Unimplemented enemy movement speed; moving some default amount"),
                             }
                         }

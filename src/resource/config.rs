@@ -96,6 +96,7 @@ pub struct PlayerConfig {
 #[derive(Debug, Deserialize, Serialize)]
 pub struct EnemyTypesConfig {
     pub basic: EnemyConfig,
+    pub tank: EnemyConfig,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -134,6 +135,7 @@ pub struct ButtonConfig {
 #[derive(Debug, Deserialize, Serialize)]
 pub struct RoundConfig {
     pub basic_multiplier: f32,
+    pub tank_multiplier: f32,
     pub start_delay: u64,
 }
 

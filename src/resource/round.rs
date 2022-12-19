@@ -20,6 +20,7 @@ pub struct RoundInfo {
 #[derive(Resource, Debug)]
 pub struct EnemyCount {
     pub Basic: u64,
+    pub Tank: u64,
 }
 
 
@@ -29,6 +30,7 @@ impl Default for RoundInfo {
             number: 0,
             enemy_counts: EnemyCount {
                 Basic: 0,
+                Tank: 0,
             },
             start_time: None,
             end_time: None,

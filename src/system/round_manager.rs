@@ -54,7 +54,15 @@ fn setup_round(
 ) {
     if round.number == 1 {
         round.enemy_counts.Basic = 5;
-    } else {
-        round.enemy_counts.Basic = (5. * round.number as f32 * config.round.basic_multiplier) as u64;
+        round.enemy_counts.Tank = 0;
+        return;
     }
+    round.enemy_counts.Basic = (5. * round.number as f32 * config.round.basic_multiplier) as u64;
+
+    if round.number >= 4 {
+        round.enemy_counts.Tank = (2. * round.number as f32 * config.round.tank_multiplier) as u64;
+        return;
+    }
+
+    round.enemy_counts.Tank = 1;
 }

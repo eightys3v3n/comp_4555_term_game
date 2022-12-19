@@ -32,7 +32,7 @@ pub fn setup(
     round.number = 0;
     round.start_time = None;
     round.end_time = None;
-    round.enemy_counts = EnemyCount{ Basic: 0 };
+    round.enemy_counts = EnemyCount{ Basic: 0, Tank: 0 };
     counters.points = 0.;
     counters.enemies_killed = 0;
 

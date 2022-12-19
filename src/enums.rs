@@ -27,6 +27,7 @@ pub enum EntityType {
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
 pub enum EnemyType {
     Basic,
+    Tank,
 }
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize, Deserialize)]
