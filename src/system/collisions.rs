@@ -169,6 +169,7 @@ pub fn do_collisions(
 
             let damage = match enemy_info.r#type {
                 EnemyType::Basic => config.enemy.basic.damage,
+                EnemyType::Tank => config.enemy.tank.damage,
                 _ => {
                     warn!("Unimplemented enemy type so couldn't determine damage to do to the player");
                     continue
